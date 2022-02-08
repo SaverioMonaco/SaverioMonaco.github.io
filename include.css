@@ -1,6 +1,6 @@
 body
   {
-    background-color: #daf1da;
+    background-color: #2e2e2e;
     text-align: center;
   }
 
@@ -11,7 +11,7 @@ body
 
   /* Add a black background color to the top navigation */
   .topnav {
-  background-color: #476e47;
+  background-color: #000000;
   overflow: hidden;
   position: fixed;
   bottom: 0;
@@ -113,7 +113,7 @@ body
  .projectstitle
    {
      font-size: 40pt;
-     color: Black;
+     color: white;
      font-family: sans-serif;
      margin: 50px 10px 10px 50px;
      text-align: left;
@@ -122,6 +122,7 @@ body
 .projlist
  {
    text-align: left;
+   color: white;
  }
 
 .pdfcont
