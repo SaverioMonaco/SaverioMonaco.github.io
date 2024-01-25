@@ -38,4 +38,4 @@ Skills
   * ADGA
   * Fortran
 
-[Download my CV](http://saveriomonaco.github.io/files/CV.pdf)
+[Download my CV](http://saveriomonaco.github.io/files/pdf/CV.pdf)

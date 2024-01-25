@@ -5,7 +5,7 @@ permalink: /publication/Monaco_2023
 excerpt: 'Testing generalization capabilities of Quantum Models (QCNN) in the context of detecting phase transition of the ANNNI spin model.'
 date: 2023-01-24
 venue: 'Physical Review B'
-paperurl: 'http://saveriomonaco.github.io/files/Monaco_2023.pdf'
+paperurl: 'files/pdf/research/Monaco_2023.pdf'
 
 ---
 **Abstract:** Quantum machine learning offers a promising advantage in extracting information about quantum
@@ -13,7 +13,7 @@ states, e.g. phase diagram. However, access to training labels is a major bottle
 supervised approach, preventing getting insights about new physics. In this work, using quantum convolutional neural networks, we overcome this limit by determining the phase diagram of a model where no analytical solutions are known, by training only on marginal points of the phase diagram, where integrable models are represented.  
 More specifically, we consider the Axial Next Nearest  Neighbor Ising (ANNNI) Hamiltonian, which possesses a ferro-magnetic, para-magnetic and antiphase, showing that the whole phase diagram can be reproduced.
 
-[Download paper here](http://saveriomonaco.github.io/files/Monaco_2023.pdf)
+[Download paper here](http://saveriomonaco.github.io/files/pdf/research/Monaco_2023.pdf/)
 
 Recommended citation: 
 

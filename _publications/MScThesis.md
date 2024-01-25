@@ -10,7 +10,7 @@ paperurl: 'files/pdf/research/MScThesis.pdf'
 ---
 **Abstract:** The LHCb collaboration has already demonstrated that quantum machine learning can be used to classify jets based on the particles flavor in particular, the so called heavy flavor jets. These studies indicates that improvements on jets classification can arise from the study of the correlation among qubits. The thesis evaluates the possibility to measure qubits correlations and study how to exploit these information for a better data classification. 
 
-[Download paper here](files/pdf/research/MScThesis.pdf)
+[Download paper here](http://saveriomonaco.github.io/files/pdf/research/MScThesis.pdf)
 
 Recommended citation: 
 
