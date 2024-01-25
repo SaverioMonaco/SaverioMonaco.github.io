@@ -56,6 +56,9 @@
       <p>Recommended citation: {{ post.citation }} <a href="{{ post.paperurl }}"><u>{{ post.paperurl }}</u></a></p>
     {% elsif post.citation %}
       <p>Recommended citation: {{ post.citation }} </p>
+    {% elsif post.cover %}
+      <p><img src="/files/covers/{{ post.title }}" alt="{{ post.title }}" /></p>
+    {% endif %}
     {% elsif post.paperurl %}
       <p>Download <a href=" {{ post.paperurl }} "><u>here</u></a></p>
     {% endif %}
