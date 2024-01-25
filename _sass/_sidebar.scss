@@ -87,8 +87,8 @@
     border-radius: 50%;
 
     @include breakpoint($large) {
-      padding: 5px;
-      border: 1px solid $border-color;
+      padding: 0px;
+      border: 3px solid $bluli;
     }
   }
 }
@@ -119,6 +119,7 @@
 .sidebar .author__name {
   font-family: $sans-serif;
   font-size: $type-size-5;
+  color : $bluli;
 }
 
 .author__bio {
