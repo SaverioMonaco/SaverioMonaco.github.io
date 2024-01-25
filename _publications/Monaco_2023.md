@@ -6,6 +6,7 @@ excerpt: 'Testing generalization capabilities of Quantum Models (QCNN) in the co
 date: 2023-01-24
 venue: 'Physical Review B'
 paperurl: '/files/pdf/research/Monaco_2023.pdf'
+cover: '/files/covers/Monaco_2023.png'
 
 ---
 **Abstract:** Quantum machine learning offers a promising advantage in extracting information about quantum

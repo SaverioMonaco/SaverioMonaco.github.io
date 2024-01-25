@@ -6,6 +6,7 @@ excerpt: 'Analysis and development of models based on the amount of entanglement
 date: 2023-09-14
 venue: 'thesis.unipd.it'
 paperurl: '/files/pdf/research/MScThesis.pdf'
+covers : '/files/covers/MScThesis.png'
 
 ---
 **Abstract:** The LHCb collaboration has already demonstrated that quantum machine learning can be used to classify jets based on the particles flavor in particular, the so called heavy flavor jets. These studies indicates that improvements on jets classification can arise from the study of the correlation among qubits. The thesis evaluates the possibility to measure qubits correlations and study how to exploit these information for a better data classification. 
