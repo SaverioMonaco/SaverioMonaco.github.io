@@ -23,10 +23,10 @@
     <button class="btn btn--inverse">Follow</button>
     <ul class="author__urls social-icons">
       {% if author.location %}
-        <li><i class="fa fa-fw fa-map-marker-alt" aria-hidden="true" style="padding-right: 1.5em;"></i>{{ author.location }}</li>
+        <li><i class="fa fa-fw fa-map-marker-alt" aria-hidden="true" style="padding-right: 1.5em;" color="#FF0000"></i>{{ author.location }}</li>
       {% endif %}
       {% if author.employer %}
-        <li><i class="fa fa-fw fa-map-marker-alt" aria-hidden="true" style="padding-right: 1.5em;"></i>{{ author.employer }}</li>
+        <li><i class="fa-solid fa-briefcase" aria-hidden="true" style="padding-right: 1.5em;"></i>{{ author.employer }}</li>
       {% endif %}
       {% if author.uri %}
         <li><a href="{{ author.uri }}"><i class="fas fa-fw fa-link" aria-hidden="true" style="padding-right: 1.5em;"></i>{{ site.data.ui-text[site.locale].website_label | default: "Website" }}</a></li>
@@ -38,7 +38,7 @@
         <li><a href="https://keybase.io/{{ author.keybase }}"><i class="fas fa-fw fa-key" aria-hidden="true" style="padding-right: 1.5em;"></i>Keybase</a></li>
       {% endif %}
        {% if author.researchgate %}
-        <li><a href="{{ author.researchgate }}"><i class="fab fa-fw fa-researchgate" aria-hidden="true" style="padding-right: 1.5em;" color="#00caba"></i>ResearchGate</a></li>
+        <li><a href="{{ author.researchgate }}"><i class="fab fa-fw fa-researchgate" aria-hidden="true" style="padding-right: 1.5em, color=#00caba"></i>ResearchGate</a></li>
       {% endif %}
       {% if author.twitter %}
         <li><a href="https://twitter.com/{{ author.twitter }}"><i class="fab fa-fw fa-twitter" aria-hidden="true" style="padding-right: 1.5em;"></i>Twitter</a></li>
