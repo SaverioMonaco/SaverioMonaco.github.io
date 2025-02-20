@@ -1,0 +1,17 @@
+[0] Config.pm:307> INFO - This is Biber 2.17
+[0] Config.pm:310> INFO - Logfile is 'CV.blg'
+[68] biber:340> INFO - === Do Feb 20, 2025, 18:01:48
+[81] Biber.pm:418> INFO - Reading 'CV.bcf'
+[137] Biber.pm:969> INFO - Using all citekeys in bib section 0
+[148] Biber.pm:4383> INFO - Processing section 0
+[158] Biber.pm:4574> INFO - Looking for bibtex file 'bib.bib' for section 0
+[159] bibtex.pm:1713> INFO - LaTeX decoding ...
+[164] bibtex.pm:1518> INFO - Found BibTeX data source 'bib.bib'
+[235] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[235] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[235] Biber.pm:4203> INFO - Sorting list 'ydnt/global//global/global' of type 'entry' with template 'ydnt' and locale 'en-US'
+[235] Biber.pm:4209> INFO - No sort tailoring available for locale 'en-US'
+[244] bbl.pm:654> INFO - Writing 'CV.bbl' with encoding 'UTF-8'
+[248] bbl.pm:757> INFO - Output to CV.bbl
+[248] Biber.pm:130> WARN - BibTeX subsystem: warning: comma(s) at end of name (removing)
+[248] Biber.pm:132> INFO - WARNINGS: 1

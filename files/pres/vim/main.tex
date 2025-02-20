@@ -1,0 +1,47 @@
+\documentclass[compress,12pt,aspectratio=169]{beamer}
+
+\usetheme{Arguelles}
+
+\usepackage{svg}
+\usepackage{xfp}
+\usepackage{cancel}
+\usepackage{hyperref}
+\usepackage{animate}
+\usepackage{listings}
+\usepackage{bbding}
+\usepackage[sfdefault]{roboto}  %% Option 'sfdefault' only if the base font of the document is to be sans serif
+\usepackage[T1]{fontenc}
+\usepackage{fontawesome}
+\usepackage[italian]{babel}
+\usepackage{xstring} % For string manipulation
+\usepackage{pgffor}
+\usetikzlibrary{arrows.meta}
+
+\newcommand{\qagtopic}{THEME}
+\newcommand{\qagweek}{DATE}
+
+\title{Corso di Vim}
+\subtitle{Boh}
+\date{\today}
+\author{Saverio Monaco}
+\github{SaverioMonaco}
+
+\AtBeginSection[]{
+  \begin{frame}[standout]
+  \vfill
+  \centering
+      \usebeamerfont{title}\insertsectionhead\par%
+  \vfill
+  \end{frame}
+}
+
+\begin{document}
+      % \input{weeks/template.tex}
+      \maketitle
+
+  \begin{frame}[plain, bg=./imgs/thanks.jpg]
+    ~\\[-2cm]
+    \hspace*{.5\linewidth}{\fontsize{40pt}{0pt}\selectfont\textcolor{black}{Domande?}}
+    
+  \end{frame} 
+\end{document}

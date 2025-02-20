@@ -1,0 +1,255 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{ydnt/global//global/global}
+    \entry{cea2024exploring}{article}{}
+      \name{author}{6}{}{%
+        {{un=0,uniquepart=base,hash=2f46445f869058e82e6deb4eae47f51b}{%
+           family={Cea},
+           familyi={C\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ddb586379120511a91adc7f6c8cdef31}{%
+           family={Grossi},
+           familyi={G\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3c8d7cac265f15ad35bd6f0923a0c1e4}{%
+           family={Monaco},
+           familyi={M\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=56fc62043413f5d3df3e79c8e0648178}{%
+           family={Rico},
+           familyi={R\bibinitperiod},
+           given={E.},
+           giveni={E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3927d455d9d2dd281ac3ebbe1e91450d}{%
+           family={Tagliacozzo},
+           familyi={T\bibinitperiod},
+           given={L.},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=81dc6ed0f8019413945c04339b2e63cf}{%
+           family={Vallecorsa},
+           familyi={V\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{70fc167a6f05869770109ba16672a446}
+      \strng{fullhash}{2bff8111c119de6d171b8ce6ef783ad3}
+      \strng{bibnamehash}{2bff8111c119de6d171b8ce6ef783ad3}
+      \strng{authorbibnamehash}{2bff8111c119de6d171b8ce6ef783ad3}
+      \strng{authornamehash}{70fc167a6f05869770109ba16672a446}
+      \strng{authorfullhash}{2bff8111c119de6d171b8ce6ef783ad3}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{arXiv pre-print}
+      \field{title}{Exploring the Phase Diagram of the quantum one-dimensional ANNNI model}
+      \field{year}{2024}
+      \true{nocite}
+    \endentry
+    \entry{gianelle2024quantum}{article}{}
+      \name{author}{6}{}{%
+        {{un=0,uniquepart=base,hash=69e286ffa273af1f98c9cf5526b4915e}{%
+           family={Gianelle},
+           familyi={G\bibinitperiod},
+           given={A},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=cf1f1648ba6dfe96ded0a609085a0847}{%
+           family={Lucchesi},
+           familyi={L\bibinitperiod},
+           given={D},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=3c8d7cac265f15ad35bd6f0923a0c1e4}{%
+           family={Monaco},
+           familyi={M\bibinitperiod},
+           given={S},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7a4c5bc01479bc95e11bb34fd1fa1b82}{%
+           family={Nicotra},
+           familyi={N\bibinitperiod},
+           given={D},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9991ee8f837385fcf5ab5852795eb2ae}{%
+           family={Sestini},
+           familyi={S\bibinitperiod},
+           given={L},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1c559ca0176d5f8d73836ec36b99f07c}{%
+           family={Zuliani},
+           familyi={Z\bibinitperiod},
+           given={D},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{organization}{1}{%
+        {Editrice Compositori srl}%
+      }
+      \strng{namehash}{e1271e4ddf14b017abc1cd6fb9a10e83}
+      \strng{fullhash}{bb06ef68cb0d28c3f979a1ab1d52041f}
+      \strng{bibnamehash}{bb06ef68cb0d28c3f979a1ab1d52041f}
+      \strng{authorbibnamehash}{bb06ef68cb0d28c3f979a1ab1d52041f}
+      \strng{authornamehash}{e1271e4ddf14b017abc1cd6fb9a10e83}
+      \strng{authorfullhash}{bb06ef68cb0d28c3f979a1ab1d52041f}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Il Nuovo Cimento C: colloquia and communications in physics}
+      \field{number}{3}
+      \field{title}{Quantum Machine Learning for data analysis at LHCb}
+      \field{volume}{47}
+      \field{year}{2024}
+      \true{nocite}
+      \field{pages}{127}
+      \range{pages}{1}
+    \endentry
+    \entry{ANNNIcern}{article}{}
+      \name{author}{5}{ul=2}{%
+        {{un=0,uniquepart=base,hash=3c8d7cac265f15ad35bd6f0923a0c1e4}{%
+           family={Monaco},
+           familyi={M\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=934ec5a0fe69e81768e167517bccf44f}{%
+           family={Kiss},
+           familyi={K\bibinitperiod},
+           given={O.},
+           giveni={O\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=62698b993ef5c4c8c5e20681dbadc6cc}{%
+           family={Mandarino},
+           familyi={M\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=81dc6ed0f8019413945c04339b2e63cf}{%
+           family={Vallecorsa},
+           familyi={V\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ddb586379120511a91adc7f6c8cdef31}{%
+           family={Grossi},
+           familyi={G\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \list{publisher}{1}{%
+        {American Physical Society}%
+      }
+      \strng{namehash}{fd347be4bfe3f5f8b8eabd6b8224e5e1}
+      \strng{fullhash}{b9d7f142125fa5cbb1a91d5339016d79}
+      \strng{bibnamehash}{b9d7f142125fa5cbb1a91d5339016d79}
+      \strng{authorbibnamehash}{b9d7f142125fa5cbb1a91d5339016d79}
+      \strng{authornamehash}{fd347be4bfe3f5f8b8eabd6b8224e5e1}
+      \strng{authorfullhash}{b9d7f142125fa5cbb1a91d5339016d79}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issue}{8}
+      \field{journaltitle}{Phys. Rev. B}
+      \field{month}{2}
+      \field{title}{Quantum phase detection generalization from marginal quantum neural network models}
+      \field{volume}{107}
+      \field{year}{2023}
+      \true{nocite}
+      \field{pages}{L081105}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1103/PhysRevB.107.L081105
+      \endverb
+      \verb{urlraw}
+      \verb https://link.aps.org/doi/10.1103/PhysRevB.107.L081105
+      \endverb
+      \verb{url}
+      \verb https://link.aps.org/doi/10.1103/PhysRevB.107.L081105
+      \endverb
+    \endentry
+    \entry{monacostudy}{article}{}
+      \name{author}{4}{ul=2}{%
+        {{un=0,uniquepart=base,hash=3c8d7cac265f15ad35bd6f0923a0c1e4}{%
+           family={Monaco},
+           familyi={M\bibinitperiod},
+           given={S.},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=cf1f1648ba6dfe96ded0a609085a0847}{%
+           family={Lucchesi},
+           familyi={L\bibinitperiod},
+           given={D.},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1c559ca0176d5f8d73836ec36b99f07c}{%
+           family={Zuliani},
+           familyi={Z\bibinitperiod},
+           given={D.},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9991ee8f837385fcf5ab5852795eb2ae}{%
+           family={Sestini},
+           familyi={S\bibinitperiod},
+           given={L.},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{31bfa51da637e1a6bc992be6e94c1768}
+      \strng{fullhash}{99de7c2133fb5831d8fad2970f143d49}
+      \strng{bibnamehash}{99de7c2133fb5831d8fad2970f143d49}
+      \strng{authorbibnamehash}{99de7c2133fb5831d8fad2970f143d49}
+      \strng{authornamehash}{31bfa51da637e1a6bc992be6e94c1768}
+      \strng{authorfullhash}{99de7c2133fb5831d8fad2970f143d49}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{year}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{thesis.unipd.it}
+      \field{title}{Study of quantum correlations in LHCb simulated heavy flavour jets}
+      \field{year}{2023}
+      \true{nocite}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

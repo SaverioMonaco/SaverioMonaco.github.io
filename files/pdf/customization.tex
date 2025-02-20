@@ -1,0 +1,187 @@
+\definecolor{alt}{HTML}{000f7e}
+\setboolean{includephoto}{false} % Set to true to include the photo, false otherwise
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CV RELATED~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheadingUnbold}[4]{
+    \vspace{-2pt}\item
+    \hspace*{-.0cm}\begin{tabular*}{0.97\textwidth}[t]{ll@{\extracolsep{\fill}}r}
+      \textbullet & \hspace*{-.6cm}#1                & #2 \\
+                  & \hspace*{-.6cm}\textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~BIBLIOGRAPHY~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+% Avoid splitting entries across page break (only for 3 or fewer lines)
+% Tip: http://tex.stackexchange.com/a/51261
+\AtBeginEnvironment{thebibliography}{%
+   \clubpenalty10000
+   \@clubpenalty \clubpenalty
+   \widowpenalty10000
+   \interlinepenalty5000}
+
+% Customized format, based on the Fancy CV template created by Adrien Friggeri
+% See https://github.com/ashee/cv (MIT license)
+\DeclareFieldFormat[article]{title}{#1\par}
+\DeclareFieldFormat[inproceedings]{title}{#1\par}
+\DeclareFieldFormat[misc]{title}{#1\par}
+\DeclareFieldFormat[report]{title}{#1\par}
+\DeclareFieldFormat[incollection]{title}{#1\par}
+
+\DeclareBibliographyDriver{article}{%
+  \small
+  \textbf{\printfield{year}}\hspace{.2cm} % 
+  \printfield{title}%
+  \newblock%
+  \hspace{.51cm}\printnames{author}%
+  \par%
+  \newblock%
+  \hspace{.45cm} {%
+    \small\color{graytext}
+    \usebibmacro{journal+issuetitle}%
+    \setunit{\space}%
+    \printfield{pages}%
+    \newunit%
+    \printlist{publisher}%
+    \setunit*{\addcomma\space}%
+    \newunit%
+  }
+  \par\vspace{0.3\baselineskip}
+}
+
+\DeclareBibliographyDriver{inproceedings}{%
+  \small
+  \printfield{title}%
+  \newblock%
+  \printnames{author}%
+  \par%
+  \newblock%
+  {%
+    \small\color{graytext}%
+    \printfield{booktitle}%
+    \setunit{\addcomma\space}%
+    \printfield{year}%
+    \setunit{\addcomma\space}%
+    \printlist{location}%
+    \newunit%
+  }
+  \par\vspace{0.3\baselineskip}
+}
+
+\DeclareBibliographyDriver{incollection}{%
+  \small
+  \printfield{title}%
+  \newblock%
+  \printnames{author}%
+  \par%
+  \newblock%
+  {%
+    \small\color{graytext}%
+    \printfield{booktitle}%
+    \setunit{\addcomma\space}%
+    \printfield{year}%
+    \setunit{\addcomma\space}%
+    \printlist{location}%
+    \newunit%
+  }
+  \par\vspace{0.3\baselineskip}
+}
+
+\DeclareBibliographyDriver{misc}{%
+  \small
+  \printfield{title}%
+  \newblock%
+  \printnames{author}%
+  \par%
+  \newblock%
+  {%
+    \small\color{graytext}%
+    \printfield{booktitle}%
+    \setunit*{\addcomma\space}%
+    \printfield{note}%
+    \setunit*{\addcomma\space}%
+    \printfield{year}%
+    \setunit{\addcomma\space}%
+    \printlist{location}%
+    \newunit%
+  }
+  \par\vspace{0.3\baselineskip}
+}
+
+\DeclareBibliographyDriver{report}{%
+  \small
+  \printfield{title}%
+  \newblock%
+  \printnames{author}%
+  \par%
+  \newblock%
+  {%
+    \fontsize{8pt}{1em}\bodyfontlight\color{graytext}%
+    \printfield{type}%
+    \setunit{\space}%
+    \printfield{number}%
+    \setunit{\addcomma\space}%
+    \printfield{year}%
+    \newunit%
+  }
+  \par\vspace{0.3\baselineskip}
+}
+
+
+% New syntax for flexible backend (BibLaTeX > v3.3)
+\DeclareNameFormat{author}{%
+  \small
+  \renewcommand*{\multinamedelim}{\addcomma\addspace}%
+  \nameparts{#1}%
+  \ifthenelse{\value{listcount}=1}
+    {\expandafter\ifstrequal\expandafter{\namepartfamily}{Monaco}{\textbf{\namepartgiven\space\namepartfamily}}{\namepartgiven\space\namepartfamily}}%
+    {\expandafter\ifstrequal\expandafter{\namepartfamily}{Monaco}{\textbf{\namepartgiven\space\namepartfamily}}{\namepartgiven\space\namepartfamily}}%
+  \ifthenelse{\value{listcount}<\value{liststop}}
+  {\addcomma\space}
+  {}
+}
