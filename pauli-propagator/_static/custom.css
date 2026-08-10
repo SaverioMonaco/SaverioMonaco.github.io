@@ -1,0 +1,18 @@
+/* Invert only this image in dark mode */
+[data-theme="dark"] img.invert-dark {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+@media (prefers-color-scheme: dark) {
+    [data-theme="auto"] img.invert-dark {
+        filter: invert(1) hue-rotate(180deg);
+    }
+}
+
+.sig-name.descname {
+    color: #00A6EB !important;
+}
+
+.sig-prename {
+    color: #e18300 !important;
+}
