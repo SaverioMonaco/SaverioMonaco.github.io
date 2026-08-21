@@ -1,0 +1,11 @@
+# name: Full certificate name
+# issuer: Issuing organization
+# year: Year awarded (leave "" if unknown)
+
+- name: "IELTS Academic: Score 7.0 (English, C1)"
+  issuer: "British Council"
+  year: ""
+
+- name: "Goethe-Zertifikat B2 (German, C1/B2)"
+  issuer: "Goethe-Institut"
+  year: ""

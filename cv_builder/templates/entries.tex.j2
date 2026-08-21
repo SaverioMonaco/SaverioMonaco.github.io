@@ -1,0 +1,33 @@
+{% if section_top_skip %}
+\cvsection[{{ section_top_skip }}]{ {{- section_title -}} }
+{% else %}
+\cvsection{ {{- section_title -}} }
+{% endif %}
+
+
+\begin{cventries}
+
+{% for entry in entries %}
+%---------------------------------------------------------
+  \cventry
+{% if swap_title_org %}
+    { {{- entry.organization | le -}} }
+    { {{- entry.title | le -}} }
+{% else %}
+    { {{- entry.title | le -}} }
+    { {{- entry.organization | le -}} }
+{% endif %}
+    { {{- entry.location | le -}} }
+    { {{- entry.dates | le -}} }
+    {
+{% if entry.bullets %}
+      \begin{cvitems}
+{% for item in entry.bullets %}
+        \item { {{- item | le -}} }
+{% endfor %}
+      \end{cvitems}
+{% endif %}
+    }
+
+{% endfor %}
+\end{cventries}

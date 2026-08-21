@@ -1,0 +1,27 @@
+# title: Your role or affiliation
+# organization: Group or club name
+# location: City, Country
+# dates: Date range
+# highlights: Descriptions of your contributions
+
+- title: "Hackathon Participant"
+  organization: "Junction Quantum Hack 2026"
+  location: "Espoo, Finland"
+  dates: "2026"
+  highlights:
+    - "Project: “Quantum Machine Learning for Finance”."
+    - "Goal: Implementation of a quantum algorithm to speed up derivative pricing beyond Black-Scholes."
+
+- title: "Hackaton Participant"
+  organization: "PennyLane Code Camp 2023"
+  location: "Online"
+  dates: "Nov. 2022"
+  highlights:
+    - "Team placed 7th out of 500+ teams in a coding challenge on Quantum Machine Learning with PennyLane."
+
+- title: "Lecturer, LaTeX Course"
+  organization: "Computer Science Committee, College of Merit “Don Nicola Mazza”"
+  location: "Padua, Italy"
+  dates: "2021 - 2023"
+  highlights:
+    - "Taught a three-lesson course spanning fundamentals to advanced topics (bibliography, TikZ, custom commands)."

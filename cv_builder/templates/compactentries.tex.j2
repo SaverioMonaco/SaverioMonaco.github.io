@@ -1,0 +1,16 @@
+{% if section_top_skip %}
+\cvsection[{{ section_top_skip }}]{ {{- section_title -}} }
+{% else %}
+\cvsection{ {{- section_title -}} }
+{% endif %}
+
+\begin{cvcompactentries}
+
+{% for entry in entries %}
+%---------------------------------------------------------
+  \cvcompactentry
+    { {{- entry.year | le -}} }
+    { {{- entry.title | le -}} }
+    { {{- entry.venue | le -}} }
+{% endfor %}
+\end{cvcompactentries}

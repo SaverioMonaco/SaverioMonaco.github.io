@@ -1,0 +1,13 @@
+\cvsection{Skills}
+
+
+\begin{cvskills}
+
+{% for skill in skills %}
+%---------------------------------------------------------
+  \cvskill
+    { {{- skill.category | le -}} }
+    { {{- skill.skills | map('leb') | join(', ') -}} }
+
+{% endfor %}
+\end{cvskills}

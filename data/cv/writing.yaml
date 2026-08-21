@@ -1,0 +1,12 @@
+# title: Your role (e.g., "Founder & Writer", "Undergraduate Student Reporter")
+# organization: Publication, blog, or outlet name
+# location: Platform or format (e.g., "Facebook Page", "Company Magazine")
+# dates: Date range
+# highlights: What you wrote about
+
+- title: "PennyLane Tutorial - Author"
+  organization: "PennyLane (Xanadu)"
+  location: "Online"
+  dates: "May 2025"
+  highlights:
+    - "Authored the tutorial “Supervised and Unsupervised Quantum Machine Learning Models for the Phase Detection of the ANNNI Spin Model” (pennylane.ai/qml/demos/tutorial_annni)."

@@ -1,0 +1,53 @@
+# category: Skill category name
+# skills: List of skills in this category
+
+- category: "Quantum Computing"
+  skills:
+    - "PennyLane"
+    - "Qiskit"
+    - "Quimb"
+    - "Yao.jl"
+
+- category: "Programming Languages"
+  skills:
+    - "Python"
+    - "Julia"
+    - "C/C++"
+    - "SQL"
+    - "R"
+    - "VHDL"
+    - "Agda"
+    - "LaTeX"
+    - "Nix"
+    - "JavaScript"
+    - "Rust"
+
+- category: "Machine Learning"
+  skills:
+    - "JAX"
+    - "PyTorch"
+    - "Keras"
+
+- category: "Other Libraries"
+  skills:
+    - "Pandas"
+    - "NumPy"
+    - "Matplotlib"
+    - "BeautifulSoup"
+
+- category: "Tools"
+  skills:
+    - "Git"
+    - "Docker"
+    - "Vim"
+    - "Linux"
+    - "Sphinx"
+    - "ReadTheDocs"
+    - "Weights & Biases"
+
+- category: "Languages"
+  skills:
+    - "Italian (native)"
+    - "English (C1, IELTS Academic 7.0)"
+    - "German (C1/B2, Goethe-Zertifikat B2)"
+    - "French (B2/B1, EsaBac Diploma)"

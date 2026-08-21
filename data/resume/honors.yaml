@@ -1,0 +1,13 @@
+# group: Subsection heading
+# awards:
+#   award: Award title or placement
+#   event: Event or organization name
+#   location: City, Country (use "" if not applicable)
+#   year: Year
+
+- group: "Academic Honors"
+  awards:
+    - award: "Magna cum laude"
+      event: "M.Sc. in Computational Physics, University of Padua"
+      location: "Padua, Italy"
+      year: "2023"

@@ -1,0 +1,15 @@
+# name: Full certificate name
+# issuer: Issuing organization
+# year: Year awarded (leave "" if unknown)
+
+- name: "IELTS Academic: Score 7.0 (English, C1)"
+  issuer: "British Council"
+  year: "2021"
+
+- name: "Goethe-Zertifikat B2 (German, B2)"
+  issuer: "Goethe-Institut"
+  year: "2016"
+
+- name: "EsaBac Diploma (French-Italian dual diploma)"
+  issuer: "Ministère de l'Éducation nationale / MIUR"
+  year: "2016"

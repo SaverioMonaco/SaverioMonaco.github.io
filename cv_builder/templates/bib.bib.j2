@@ -1,0 +1,31 @@
+{% for pub in publications %}
+@{{ pub.type | default('article') }}{ {{- pub.key }},
+    author  = { {{- pub.author -}} },
+    title   = { {{- pub.title -}} },
+{% if pub.journal %}
+    journal = { {{- pub.journal -}} },
+{% endif %}
+{% if pub.year %}
+    year    = { {{- pub.year -}} },
+{% endif %}
+{% if pub.volume %}
+    volume  = { {{- pub.volume -}} },
+{% endif %}
+{% if pub.issue %}
+    issue   = { {{- pub.issue -}} },
+{% endif %}
+{% if pub.pages %}
+    pages   = { {{- pub.pages -}} },
+{% endif %}
+{% if pub.publisher %}
+    publisher = { {{- pub.publisher -}} },
+{% endif %}
+{% if pub.doi %}
+    doi     = { {{- pub.doi -}} },
+{% endif %}
+{% if pub.url %}
+    url     = { {{- pub.url -}} },
+{% endif %}
+}
+
+{% endfor %}

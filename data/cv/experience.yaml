@@ -1,0 +1,22 @@
+# title: Job title
+# organization: Company name
+# location: City, Country
+# dates: Date range (e.g. "Mar. 2021 - Present")
+# highlights: List of accomplishments and responsibilities
+
+- title: "Research Secondment"
+  organization: "ParityQC"
+  location: "Hamburg, Germany"
+  dates: "Sep. 2025 - Dec. 2025"
+  highlights:
+    - "Compared performance of training quantum generative models on IBM machines and the QSea machine."
+
+- title: "Quantum Machine Learning Intern"
+  organization: "CERN"
+  location: "Geneva, Switzerland"
+  dates: "Apr. 2022 - Aug. 2022"
+  highlights:
+    - "Explored quantum machine learning techniques for phase detection in the ANNNI spin model."
+    - "Developed and implemented supervised and unsupervised architectures for phase detection."
+    - "Published a Python package under the CERN-IT organization."
+    - "Authored and published a paper on the implemented techniques."

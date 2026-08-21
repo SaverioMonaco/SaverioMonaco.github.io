@@ -1,0 +1,13 @@
+# title: Job title
+# organization: Company name
+# location: City, Country
+# dates: Date range
+# highlights: List of accomplishments and responsibilities
+
+- title: "Quantum Machine Learning Intern"
+  organization: "CERN"
+  location: "Geneva, Switzerland"
+  dates: "Apr. 2022 - Aug. 2022"
+  highlights:
+    - "Developed supervised and unsupervised architectures for quantum phase detection in the ANNNI spin model."
+    - "Published a Python package under the CERN-IT organization and authored a paper on the implemented techniques."

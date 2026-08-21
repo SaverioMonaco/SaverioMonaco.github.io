@@ -1,0 +1,40 @@
+name:
+  first: "Saverio"
+  last: "Monaco"
+
+# Multiple positions are joined with a bullet separator (·)
+position:
+  - "Computational Physicist"
+  - "(Quantum) Machine Learning Researcher"
+
+address: "Hamburg, Germany"
+
+contact:
+  mobile: ""
+  email: "saverio.monaco@desy.de"
+  website: ""
+  whatsapp: ""
+
+social:
+  github: "SaverioMonaco"
+  linkedin: "saverio-monaco"
+  twitter: ""
+  gitlab: ""
+  stackoverflow: ""  # format: "SO-id/SO-name"
+  x: ""
+
+quote: ""
+
+# Uncomment to add a profile photo to the PDF CV/resume:
+# photo:
+#   path: "./examples/profile"
+#   shape: circle       # circle or rectangle
+#   edge: noedge        # edge or noedge
+#   align: left         # left or right
+photo: null
+
+# Profile photo shown only on the HTML CV (never on the PDF). Set path to ""
+# to hide it. Image is embedded directly into the generated HTML file.
+photo_web:
+  path: "data/profile.jpg"
+  shape: circle   # circle or square

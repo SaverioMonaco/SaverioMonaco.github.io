@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cv-builder"
+version = "0.1.0"
+description = "Generate Awesome-CV LaTeX files from YAML data"
+requires-python = ">=3.9"
+dependencies = [
+    "jinja2>=3.1",
+    "pyyaml>=6.0",
+    "click>=8.0",
+]
+
+[project.scripts]
+cv-builder = "cv_builder.cli:cli"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["cv_builder*"]
+
+[tool.setuptools.package-data]
+cv_builder = ["templates/**/*.j2"]

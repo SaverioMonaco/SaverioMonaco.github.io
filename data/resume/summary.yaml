@@ -1,0 +1,8 @@
+# Plain text paragraph shown at the top of the resume.
+# Use |- to write multiple paragraphs without trailing newline,
+# or | to preserve a trailing newline.
+
+text: |-
+  PhD candidate in Quantum Computing applied to High Energy Physics at RWTH Aachen University & DESY, working on quantum generative models and detector simulation for the HL-LHC. Background in computational physics, with hands-on experience developing quantum machine learning architectures during an internship at CERN.
+
+  Author of several peer-reviewed publications and conference contributions on quantum machine learning and quantum simulation. Comfortable across the stack from Python/Julia research code to LaTeX-typeset publications, with a strong interest in open-source scientific tooling.

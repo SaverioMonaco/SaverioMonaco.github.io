@@ -1,0 +1,28 @@
+# title: Degree name
+# organization: Institution name
+# location: City, Country
+# dates: Date range
+# highlights: Achievements, scholarships, thesis, etc.
+
+- title: "PhD in Quantum Generative Models for High Energy Physics (ENGAGE)"
+  organization: "RWTH Aachen University & DESY"
+  location: "Hamburg, Germany"
+  dates: "Mar. 2024 - Present"
+  highlights:
+    - "Marie Skłodowska-Curie PhD Fellowship"
+    - "Thesis: Detector Simulation and Jet Clustering for HL-LHC with Quantum Computing"
+
+- title: "M.Sc. in Computational Physics"
+  organization: "University of Padua"
+  location: "Padua, Italy"
+  dates: "Sep. 2020 - Sep. 2023"
+  highlights:
+    - "Thesis: Study of Quantum Correlations in LHCb Simulated Heavy Flavour Jets"
+    - "Honors: Magna cum laude"
+
+- title: "B.Sc. in Physics"
+  organization: "University of Catania"
+  location: "Catania, Italy"
+  dates: "Sep. 2016 - Jul. 2020"
+  highlights:
+    - "Thesis: Phase-Space Formulation of Quantum Mechanics"

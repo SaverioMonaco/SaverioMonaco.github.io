@@ -88,8 +88,18 @@
   }
   .theme-toggle:hover, .theme-toggle:focus-visible { border-color: var(--accent); transform: translateY(-1px); }
 
+  /* Top nav */
+  .top-nav {
+    position: fixed;
+    top: clamp(.75rem, 3vw, 1.25rem);
+    left: clamp(.75rem, 3vw, 1.25rem);
+    display: flex;
+    gap: .5rem;
+    z-index: 10;
+  }
+
   /* Header */
-  .cv-header { text-align: center; margin-bottom: 2.25rem; }
+  .cv-header { text-align: center; margin-top: 2.75rem; margin-bottom: 2.25rem; }
   .cv-photo {
     width: 7.5rem;
     height: 7.5rem;
@@ -338,12 +348,17 @@
     .entry-toggle { display: none; }
     .entry { break-inside: avoid; }
     .theme-toggle { display: none; }
+    .top-nav { display: none; }
     .page-footer { display: none; }
   }
 </style>
 </head>
 <body>
 <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+<nav class="top-nav">
+  <a class="chip" href="projects/">Projects</a>
+  <a class="chip" href="gym.html">Gym</a>
+</nav>
 <div class="page">
 
   <header class="cv-header">

@@ -1,0 +1,21 @@
+\cvsection{ {{- section_title -}} }
+
+{% for group in groups %}
+{% if group.subsection %}
+\cvsubsection{ {{- group.subsection | le -}} }
+
+{% endif %}
+\begin{cvhonors}
+
+{% for award in group.awards %}
+%---------------------------------------------------------
+  \cvhonor
+    { {{- award.col1 | le -}} }
+    { {{- award.col2 | le -}} }
+    { {{- award.col3 | le -}} }
+    { {{- award.col4 | le -}} }
+
+{% endfor %}
+\end{cvhonors}
+
+{% endfor %}

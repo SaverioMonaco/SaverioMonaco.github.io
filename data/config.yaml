@@ -1,0 +1,43 @@
+# LaTeX document configuration
+paper: a4paper          # a4paper or letterpaper
+font_size: 11pt
+
+# Highlight color — choose one of the presets below, or a bare hex code
+# (no #). Used for section titles and small italic text (entry locations).
+#   Presets: awesome-emerald, awesome-skyblue, awesome-red, awesome-pink,
+#            awesome-orange, awesome-nephritis, awesome-concrete, awesome-darknight
+highlight_color: "0395DE"
+
+# Whether to color section titles with the highlight color
+section_color_highlight: true
+
+# Body text colors (hex, no #). awesome-cv's defaults (333333 / 5D5D5D) can
+# look faint for dense text like bullet lists and job-title subtitles —
+# these darker values improve readability. Leave "" to use awesome-cv defaults.
+text_color: "1A1A1A"            # main body text: bullet points, skill lists
+secondary_text_color: "000000"  # job/degree subtitle line, dates, honor rows
+
+cv:
+  header_align: ""    # C (center), L (left), R (right), or "" for default
+  # List the sections to include, in order. Comment out any you don't want.
+  sections:
+    - cv/education.tex
+    - cv/experience.tex
+    - cv/skills.tex
+    - cv/publications.tex
+    - cv/presentation.tex
+    - cv/extracurricular.tex
+    - cv/writing.tex
+    # - cv/honors.tex      # no data yet — leave commented out to hide
+    - cv/certificates.tex
+    # - cv/committees.tex   # no data yet — leave commented out to hide
+
+resume:
+  header_align: "C"
+  # List the sections to include, in order. Comment out any you don't want.
+  sections:
+    - resume/summary.tex
+    - resume/experience.tex
+    - resume/education.tex
+    - resume/honors.tex
+    - resume/certificates.tex

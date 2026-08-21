@@ -1,0 +1,9 @@
+# role: Your role on the committee
+# committee: Committee or event name
+# location: City, Country
+# year: Year
+#
+# No committee service yet — add entries here and uncomment
+# "cv/committees.tex" in data/config.yaml to show this section.
+
+[]

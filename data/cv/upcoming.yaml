@@ -1,0 +1,28 @@
+# "Upcoming" goals shown only at the bottom of the HTML CV (never on the PDF).
+# title: Name of the certificate, skill, or goal you're working toward
+# note: Optional short description of what it involves or why (leave "" to omit)
+# target: Optional target date/timeframe, e.g. "2026" or "Dec. 2026" (leave "" to omit)
+
+- title: "JLPT N3: Japanese Language Proficiency Test"
+  note: "Working toward intermediate Japanese proficiency."
+  target: "2027"
+
+- title: "PhD Graduation"
+  note: "Detector Simulation and Jet Clustering for HL-LHC with Quantum Computing, RWTH Aachen University & DESY."
+  target: "2027"
+
+- title: "Quantum Computing for High-Energy Physics: From Demonstrations to Scientific Utility"
+  note: "S. Monaco et al. Manuscript in preparation."
+  target: "2026"
+
+- title: "Classical Pre-Training of Large Shallow Parametrized Quantum Circuits through Pauli Propagation"
+  note: "S. Monaco, J. Slim, F. Rehm, D. Krücker, K. Borras. Manuscript in preparation."
+  target: "2026"
+
+- title: "Study of Ansätze under Pauli Propagation"
+  note: "S. Monaco, J. Slim, F. Rehm, D. Krücker, K. Borras. Manuscript in preparation."
+  target: "2026"
+
+- title: "PennyLane Tutorial - Author"
+  note: "Author a PennyLane (Xanadu) tutorial on Symbolic Pauli Propagation for Gradient-Enabled Pre-Training of Quantum Circuits."
+  target: "2026"
