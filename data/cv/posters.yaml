@@ -1,0 +1,63 @@
+# title: Poster title
+# organization: Event or conference name
+# location: City, Country
+# dates: Date of the poster session
+# highlights: What the poster covered
+# pdf: Relative path to the poster, e.g. "posters/acat2025-qag.pdf"
+#      (drop the file in the top-level posters/ directory) — leave "" to hide the link
+- title: "“TBD”"
+  organization: "QT4HEP 2026 (CERN)"
+  location: "Geneva, Switzerland"
+  dates: "Nov. 2026"
+  highlights: []
+  pdf: ""
+  tbd: true
+
+- title: "“Symbolic Pauli Propagation for Gradient Enabled Pre-Training of Quantum Circuits”"
+  organization: "QC4HEP 2026 (LMU Munich)"
+  location: "Munich, Germany"
+  dates: "Feb. 2026"
+  highlights: []
+  pdf: "posters/qc4hep2026.pdf"
+
+- title: "“Scalable continuous-type generative model on superconducting quantum computers”"
+  organization: "ACAT 2025 (University of Hamburg)"
+  location: "Hamburg, Germany"
+  dates: "Sep. 2025"
+  highlights: []
+  pdf: "posters/acat2025.pdf"
+
+- title: "“Precise Quantum Angle Generator Designed for Noisy Quantum Devices”"
+  organization: "EPS 2025 (Palais du Pharo)"
+  location: "Marseille, France"
+  dates: "Jul. 2025"
+  highlights: []
+  pdf: "posters/eps2025.pdf"
+
+- title: "“Precise Quantum Angle Generator Designed for Noisy Quantum Devices”"
+  organization: "QT4HEP 2025 (CERN)"
+  location: "Geneva, Switzerland"
+  dates: "Jan. 2025"
+  highlights: []
+  pdf: "posters/qt4hep2025.pdf"
+
+- title: "“Precise Quantum Angle Generator Designed for Noisy Quantum Devices”"
+  organization: "QTech 2024 (Freie Universität Berlin)"
+  location: "Berlin, Germany"
+  dates: "Sep. 2024"
+  highlights: []
+  pdf: "posters/qutech2025.pdf"
+
+- title: "“Quantum Machine Learning for data analysis at LHCb”"
+  organization: "IFAE 2023 (University of Catania)"
+  location: "Catania, Italy"
+  dates: "Apr. 2023"
+  highlights: []
+  pdf: "posters/Poster_IFAE.pdf"
+
+- title: "“Quantum phase detection generalization from marginal quantum neural network models”"
+  organization: "QIP 2023 (Ghent University)"
+  location: "Ghent, Belgium"
+  dates: "Feb. 2023"
+  highlights: []
+  pdf: "posters/qip.pdf"

@@ -25,12 +25,21 @@ cv:
     - cv/experience.tex
     - cv/skills.tex
     - cv/publications.tex
-    - cv/presentation.tex
+    - cv/talks.tex
+    - cv/posters.tex
     - cv/extracurricular.tex
     - cv/writing.tex
+    # - cv/schools.tex      # no data yet — leave commented out to hide
     # - cv/honors.tex      # no data yet — leave commented out to hide
     - cv/certificates.tex
     # - cv/committees.tex   # no data yet — leave commented out to hide
+
+  # Sections from the list above to skip specifically in the PDF/LaTeX CV
+  # (build/cv.tex), while still showing them on the web CV (cv.html).
+  # Any section not listed here stays visible by default. Example:
+  #   hide_from_pdf:
+  #     - cv/writing.tex
+  hide_from_pdf: []
 
 resume:
   header_align: "C"

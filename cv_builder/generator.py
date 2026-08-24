@@ -77,6 +77,8 @@ def _normalize_entries(data: list) -> list:
             "location": item.get("location", ""),
             "dates": item.get("dates", ""),
             "bullets": item.get("highlights", item.get("items", [])) or [],
+            "pdf": item.get("pdf", ""),
+            "tbd": bool(item.get("tbd", False)),
         }
         for item in (data or [])
     ]
@@ -98,8 +100,8 @@ def _section_is_empty(section: dict) -> bool:
 
 def _normalize_compact_entries(data: list) -> list:
     """Normalize entries-type YAML into bibliography-style compact entries
-    (year, title, venue) — used for the Presentation/Talks section so it
-    reads as compactly as the Publications bibliography."""
+    (year, title, venue) — used for the Talks/Posters sections so they
+    read as compactly as the Publications bibliography."""
     entries = []
     for item in (data or []):
         dates = item.get("dates", "")
@@ -109,6 +111,7 @@ def _normalize_compact_entries(data: list) -> list:
             "year": years[-1] if years else dates,
             "title": item.get("title", ""),
             "venue": venue,
+            "pdf": item.get("pdf", ""),
         })
     return entries
 
@@ -334,17 +337,25 @@ class Generator:
                      section_title="Certificates",
                      groups=_normalize_certificates(self._load("cv", "certificates.yaml")))
 
+        self._render("compactentries.tex.j2", o / "talks.tex",
+                     section_title="Talks", section_top_skip="3.5mm",
+                     entries=_normalize_compact_entries(self._load("cv", "talks.yaml")))
+
+        self._render("compactentries.tex.j2", o / "posters.tex",
+                     section_title="Posters", section_top_skip="3.5mm",
+                     entries=_normalize_compact_entries(self._load("cv", "posters.yaml")))
+
         self._render("entries.tex.j2", o / "extracurricular.tex",
                      section_title="Extracurricular Activity", section_top_skip="3.5mm",
                      entries=_normalize_entries(self._load("cv", "extracurricular.yaml")))
 
-        self._render("compactentries.tex.j2", o / "presentation.tex",
-                     section_title="Presentations", section_top_skip="3.5mm",
-                     entries=_normalize_compact_entries(self._load("cv", "presentation.yaml")))
-
         self._render("entries.tex.j2", o / "writing.tex",
                      section_title="Writing",
                      entries=_normalize_entries(self._load("cv", "writing.yaml")))
+
+        self._render("entries.tex.j2", o / "schools.tex",
+                     section_title="Schools", section_top_skip="3.5mm",
+                     entries=_normalize_entries(self._load("cv", "schools.yaml")))
 
         self._render("honors.tex.j2", o / "committees.tex",
                      section_title="Program Committees",
@@ -396,21 +407,29 @@ class Generator:
                 "skills": self._load("cv", "skills.yaml"),
             },
             "publications": lambda: {
-                "kind": "publications", "title": "Publications",
+                "kind": "publications", "title": "Publications", "collapsible": True,
                 "publications": _normalize_publications(
                     self._load("cv", "publications.yaml"), personal["name"]["last"]),
             },
-            "presentation": lambda: {
-                "kind": "entries", "title": "Presentations",
-                "entries": _normalize_entries(self._load("cv", "presentation.yaml")),
+            "talks": lambda: {
+                "kind": "entries", "title": "Talks", "collapsible": True,
+                "entries": _normalize_entries(self._load("cv", "talks.yaml")),
+            },
+            "posters": lambda: {
+                "kind": "entries", "title": "Posters", "collapsible": True,
+                "entries": _normalize_entries(self._load("cv", "posters.yaml")),
             },
             "extracurricular": lambda: {
-                "kind": "entries", "title": "Extracurricular Activity",
+                "kind": "entries", "title": "Extracurricular Activity", "collapsible": True,
                 "entries": _normalize_entries(self._load("cv", "extracurricular.yaml")),
             },
             "writing": lambda: {
-                "kind": "entries", "title": "Writing",
+                "kind": "entries", "title": "Writing", "collapsible": True,
                 "entries": _normalize_entries(self._load("cv", "writing.yaml")),
+            },
+            "schools": lambda: {
+                "kind": "entries", "title": "Schools",
+                "entries": _normalize_entries(self._load("cv", "schools.yaml")),
             },
             "honors": lambda: {
                 "kind": "honors", "title": "Honors & Awards",
@@ -459,8 +478,12 @@ class Generator:
         config = self._load("config.yaml")
         highlight_color_hex = _resolve_color(config["highlight_color"])[1:]
 
+        hide_from_pdf = set(config["cv"].get("hide_from_pdf") or [])
+        pdf_sections = [s for s in config["cv"]["sections"] if s not in hide_from_pdf]
+
         self._render("cv.tex.j2", self.output_dir / "cv.tex",
-                     personal=personal, config=config, highlight_color_hex=highlight_color_hex)
+                     personal=personal, config=config, highlight_color_hex=highlight_color_hex,
+                     pdf_sections=pdf_sections)
 
         self._render("resume.tex.j2", self.output_dir / "resume.tex",
                      personal=personal, config=config, highlight_color_hex=highlight_color_hex)

@@ -131,7 +131,7 @@
   {\thepage}
 
 
-{% for section in config.cv.sections %}
+{% for section in pdf_sections %}
 \input{ {{- section -}} }
 {% endfor %}
 

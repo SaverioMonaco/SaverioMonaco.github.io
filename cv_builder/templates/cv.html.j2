@@ -167,6 +167,31 @@
     color: var(--accent);
     border-bottom-color: var(--accent);
   }
+  .section-title-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  .section-title-toggle .section-count { color: var(--secondary); font-weight: 400; }
+  .section-title-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .section-toggle-icon {
+    color: var(--accent);
+    font-size: .8rem;
+    transition: transform .2s ease;
+  }
+  .cv-section.collapsible .section-body {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height .25s ease, opacity .2s ease;
+  }
+  .cv-section.collapsible.expanded .section-body {
+    max-height: 300em;
+    opacity: 1;
+    margin-top: .9rem;
+  }
+  .cv-section.collapsible.expanded .section-toggle-icon { transform: rotate(180deg); }
   .subsection {
     font-size: .85rem;
     text-transform: uppercase;
@@ -190,6 +215,16 @@
     box-shadow: 0 2px 12px rgba(0, 0, 0, .07);
   }
   .entry:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .entry.entry-tbd {
+    background: transparent;
+    border: 1px dashed var(--border);
+    opacity: .6;
+  }
+  .entry.entry-tbd:hover, .entry.entry-tbd:focus-visible {
+    opacity: 1;
+    border-color: var(--accent);
+    box-shadow: none;
+  }
   .entry-head {
     display: flex;
     justify-content: space-between;
@@ -198,6 +233,21 @@
   }
   .entry-titles { min-width: 0; flex: 1 1 auto; }
   .entry-title { font-weight: 700; }
+  .entry-title-link { font-weight: 700; text-decoration: none; color: var(--text); }
+  .entry-title-link:hover, .entry-title-link:focus-visible { color: var(--accent); }
+  .entry-pdf-badge {
+    display: inline-block;
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 0 .45rem;
+    margin-left: .4rem;
+    vertical-align: middle;
+  }
   .entry-org { display: block; color: var(--secondary); font-size: .92rem; }
   .entry-meta { display: flex; align-items: baseline; gap: .5rem; white-space: nowrap; flex: 0 0 auto; }
   .entry-dates { color: var(--secondary); font-size: .85rem; }
@@ -350,6 +400,8 @@
     .theme-toggle { display: none; }
     .top-nav { display: none; }
     .page-footer { display: none; }
+    .section-body { max-height: none !important; opacity: 1 !important; margin-top: .9rem !important; }
+    .section-toggle-icon { display: none; }
   }
 </style>
 </head>
@@ -384,15 +436,27 @@
   </header>
 
   {% for section in sections %}
-  <section class="cv-section">
-    <h2 class="section-title{{ ' highlighted' if section_color_highlight else '' }}">{{ section.title|e }}</h2>
+  <section class="cv-section{{ ' collapsible' if section.collapsible else '' }}">
+    <h2 class="section-title{{ ' highlighted' if section_color_highlight else '' }}{{ ' section-title-toggle' if section.collapsible else '' }}"{% if section.collapsible %} tabindex="0" role="button" aria-expanded="false"{% endif %}>
+      {% if section.collapsible %}
+      <span>{{ section.title|e }} <span class="section-count">({{ (section.entries if section.kind == 'entries' else section.publications)|length }})</span></span>
+      <span class="section-toggle-icon" aria-hidden="true">▾</span>
+      {% else %}
+      {{ section.title|e }}
+      {% endif %}
+    </h2>
 
+    <div class="section-body">
     {% if section.kind == 'entries' %}
       {% for entry in section.entries %}
-      <article class="entry"{% if entry.bullets %} tabindex="0" aria-expanded="false"{% endif %}>
+      <article class="entry{{ ' entry-tbd' if entry.tbd else '' }}"{% if entry.bullets %} tabindex="0" aria-expanded="false"{% endif %}>
         <div class="entry-head">
           <div class="entry-titles">
+            {% if entry.pdf %}
+            <a class="entry-title-link" href="{{ entry.pdf|e }}" target="_blank" rel="noopener">{{ entry.title|e }}<span class="entry-pdf-badge">PDF</span></a>
+            {% else %}
             <span class="entry-title">{{ entry.title|e }}</span>
+            {% endif %}
             {% if entry.organization or entry.location %}
             <span class="entry-org">{{ entry.organization|e }}{% if entry.organization and entry.location %} · {% endif %}{{ entry.location|e }}</span>
             {% endif %}
@@ -465,6 +529,7 @@
         </div>
       {% endfor %}
     {% endif %}
+    </div>
   </section>
   {% endfor %}
 
@@ -492,6 +557,25 @@
 
 </div>
 <script>
+  document.querySelectorAll('.entry-title-link').forEach(function (link) {
+    link.addEventListener('click', function (e) { e.stopPropagation(); });
+  });
+
+  document.querySelectorAll('.section-title-toggle').forEach(function (title) {
+    var section = title.closest('.cv-section');
+    function toggle() {
+      var open = section.classList.toggle('expanded');
+      title.setAttribute('aria-expanded', String(open));
+    }
+    title.addEventListener('click', toggle);
+    title.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
+    });
+  });
+
   document.querySelectorAll('.entry[tabindex]').forEach(function (entry) {
     function toggle() {
       var open = entry.classList.toggle('expanded');

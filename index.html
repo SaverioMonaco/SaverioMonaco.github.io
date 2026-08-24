@@ -167,6 +167,31 @@
     color: var(--accent);
     border-bottom-color: var(--accent);
   }
+  .section-title-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  .section-title-toggle .section-count { color: var(--secondary); font-weight: 400; }
+  .section-title-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .section-toggle-icon {
+    color: var(--accent);
+    font-size: .8rem;
+    transition: transform .2s ease;
+  }
+  .cv-section.collapsible .section-body {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height .25s ease, opacity .2s ease;
+  }
+  .cv-section.collapsible.expanded .section-body {
+    max-height: 300em;
+    opacity: 1;
+    margin-top: .9rem;
+  }
+  .cv-section.collapsible.expanded .section-toggle-icon { transform: rotate(180deg); }
   .subsection {
     font-size: .85rem;
     text-transform: uppercase;
@@ -190,6 +215,16 @@
     box-shadow: 0 2px 12px rgba(0, 0, 0, .07);
   }
   .entry:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .entry.entry-tbd {
+    background: transparent;
+    border: 1px dashed var(--border);
+    opacity: .6;
+  }
+  .entry.entry-tbd:hover, .entry.entry-tbd:focus-visible {
+    opacity: 1;
+    border-color: var(--accent);
+    box-shadow: none;
+  }
   .entry-head {
     display: flex;
     justify-content: space-between;
@@ -198,6 +233,21 @@
   }
   .entry-titles { min-width: 0; flex: 1 1 auto; }
   .entry-title { font-weight: 700; }
+  .entry-title-link { font-weight: 700; text-decoration: none; color: var(--text); }
+  .entry-title-link:hover, .entry-title-link:focus-visible { color: var(--accent); }
+  .entry-pdf-badge {
+    display: inline-block;
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 0 .45rem;
+    margin-left: .4rem;
+    vertical-align: middle;
+  }
   .entry-org { display: block; color: var(--secondary); font-size: .92rem; }
   .entry-meta { display: flex; align-items: baseline; gap: .5rem; white-space: nowrap; flex: 0 0 auto; }
   .entry-dates { color: var(--secondary); font-size: .85rem; }
@@ -350,6 +400,8 @@
     .theme-toggle { display: none; }
     .top-nav { display: none; }
     .page-footer { display: none; }
+    .section-body { max-height: none !important; opacity: 1 !important; margin-top: .9rem !important; }
+    .section-toggle-icon { display: none; }
   }
 </style>
 </head>
@@ -370,8 +422,11 @@
   </header>
 
   <section class="cv-section">
-    <h2 class="section-title highlighted">Education</h2>
+    <h2 class="section-title highlighted">
+      Education
+    </h2>
 
+    <div class="section-body">
       <article class="entry" tabindex="0" aria-expanded="false">
         <div class="entry-head">
           <div class="entry-titles">
@@ -412,10 +467,14 @@
 <li>Thesis: Phase-Space Formulation of Quantum Mechanics</li>        </ul>
       </article>
 
+    </div>
   </section>
   <section class="cv-section">
-    <h2 class="section-title highlighted">Experience</h2>
+    <h2 class="section-title highlighted">
+      Experience
+    </h2>
 
+    <div class="section-body">
       <article class="entry" tabindex="0" aria-expanded="false">
         <div class="entry-head">
           <div class="entry-titles">
@@ -443,10 +502,14 @@
 <li>Explored quantum machine learning techniques for phase detection in the ANNNI spin model.</li><li>Developed and implemented supervised and unsupervised architectures for phase detection.</li><li>Published a Python package under the CERN-IT organization.</li><li>Authored and published a paper on the implemented techniques.</li>        </ul>
       </article>
 
+    </div>
   </section>
   <section class="cv-section">
-    <h2 class="section-title highlighted">Skills</h2>
+    <h2 class="section-title highlighted">
+      Skills
+    </h2>
 
+    <div class="section-body">
       <div class="skills-grid">
         <div class="skill-group">
           <h3 class="skill-category">Quantum Computing</h3>
@@ -480,10 +543,15 @@
         </div>
       </div>
 
+    </div>
   </section>
-  <section class="cv-section">
-    <h2 class="section-title highlighted">Publications</h2>
+  <section class="cv-section collapsible">
+    <h2 class="section-title highlighted section-title-toggle" tabindex="0" role="button" aria-expanded="false">
+      <span>Publications <span class="section-count">(9)</span></span>
+      <span class="section-toggle-icon" aria-hidden="true">▾</span>
+    </h2>
 
+    <div class="section-body">
       <div class="pub-list">
         <div class="pub">
           <div class="pub-year">2026</div>
@@ -575,14 +643,30 @@
         </div>
       </div>
 
+    </div>
   </section>
-  <section class="cv-section">
-    <h2 class="section-title highlighted">Presentations</h2>
+  <section class="cv-section collapsible">
+    <h2 class="section-title highlighted section-title-toggle" tabindex="0" role="button" aria-expanded="false">
+      <span>Talks <span class="section-count">(7)</span></span>
+      <span class="section-toggle-icon" aria-hidden="true">▾</span>
+    </h2>
 
+    <div class="section-body">
+      <article class="entry entry-tbd">
+        <div class="entry-head">
+          <div class="entry-titles">
+            <span class="entry-title">“TBD”</span>
+            <span class="entry-org">LHC Quantum Computing Workshop (University of Valencia) · Valencia, Spain</span>
+          </div>
+          <div class="entry-meta">
+            <span class="entry-dates">Sep. 2026</span>
+          </div>
+        </div>
+      </article>
       <article class="entry">
         <div class="entry-head">
           <div class="entry-titles">
-            <span class="entry-title">Talk: “Training Quantum Generative Models for High Energy Physics”</span>
+            <a class="entry-title-link" href="talks/fhscicomp2026.pdf" target="_blank" rel="noopener">“Training Quantum Generative Models for High Energy Physics”<span class="entry-pdf-badge">PDF</span></a>
             <span class="entry-org">FHSciComp 2026 (DESY) · Hamburg, Germany</span>
           </div>
           <div class="entry-meta">
@@ -593,7 +677,7 @@
       <article class="entry">
         <div class="entry-head">
           <div class="entry-titles">
-            <span class="entry-title">Talk: “Symbolic Pauli Propagation for Gradient-Enabled Pre-Training of Quantum Circuits”</span>
+            <a class="entry-title-link" href="talks/cernjc.pdf" target="_blank" rel="noopener">“Symbolic Pauli Propagation for Gradient-Enabled Pre-Training of Quantum Circuits”<span class="entry-pdf-badge">PDF</span></a>
             <span class="entry-org">CERN QTI Journal Club (CERN) · Geneva, Switzerland</span>
           </div>
           <div class="entry-meta">
@@ -604,7 +688,83 @@
       <article class="entry">
         <div class="entry-head">
           <div class="entry-titles">
-            <span class="entry-title">Poster: “Precise Quantum Angle Generator Designed for Noisy Quantum Devices”</span>
+            <span class="entry-title">“Performance analysis of the QAG algorithm on QSEA and IBM quantum computers”</span>
+            <span class="entry-org">HQML Consortium Meeting · Hamburg, Germany</span>
+          </div>
+          <div class="entry-meta">
+            <span class="entry-dates">Dec. 2025</span>
+          </div>
+        </div>
+      </article>
+      <article class="entry">
+        <div class="entry-head">
+          <div class="entry-titles">
+            <a class="entry-title-link" href="talks/h20202025.pdf" target="_blank" rel="noopener">“Detector Simulation and Jet-Clustering for HL-LHC with Quantum Computing”<span class="entry-pdf-badge">PDF</span></a>
+            <span class="entry-org">H2020 Engage Conference (ESRF) · Grenoble, France</span>
+          </div>
+          <div class="entry-meta">
+            <span class="entry-dates">Jun. 2025</span>
+          </div>
+        </div>
+      </article>
+      <article class="entry">
+        <div class="entry-head">
+          <div class="entry-titles">
+            <a class="entry-title-link" href="talks/mu2024.pdf" target="_blank" rel="noopener">“Precise Quantum Angle Generator Designed for Noisy Quantum Devices”<span class="entry-pdf-badge">PDF</span></a>
+            <span class="entry-org">Helmholtz Matter and the Universe Days 2024 (DESY) · Hamburg, Germany</span>
+          </div>
+          <div class="entry-meta">
+            <span class="entry-dates">Dec. 2024</span>
+          </div>
+        </div>
+      </article>
+      <article class="entry">
+        <div class="entry-head">
+          <div class="entry-titles">
+            <a class="entry-title-link" href="talks/fhscicomp2024.pdf" target="_blank" rel="noopener">“Precise Quantum Angle Generator Designed for Noisy Quantum Devices”<span class="entry-pdf-badge">PDF</span></a>
+            <span class="entry-org">FHSciComp 2024 (DESY) · Hamburg, Germany</span>
+          </div>
+          <div class="entry-meta">
+            <span class="entry-dates">Jun. 2024</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+  <section class="cv-section collapsible">
+    <h2 class="section-title highlighted section-title-toggle" tabindex="0" role="button" aria-expanded="false">
+      <span>Posters <span class="section-count">(8)</span></span>
+      <span class="section-toggle-icon" aria-hidden="true">▾</span>
+    </h2>
+
+    <div class="section-body">
+      <article class="entry entry-tbd">
+        <div class="entry-head">
+          <div class="entry-titles">
+            <span class="entry-title">“TBD”</span>
+            <span class="entry-org">QT4HEP 2026 (CERN) · Geneva, Switzerland</span>
+          </div>
+          <div class="entry-meta">
+            <span class="entry-dates">Nov. 2026</span>
+          </div>
+        </div>
+      </article>
+      <article class="entry">
+        <div class="entry-head">
+          <div class="entry-titles">
+            <a class="entry-title-link" href="posters/qc4hep2026.pdf" target="_blank" rel="noopener">“Symbolic Pauli Propagation for Gradient Enabled Pre-Training of Quantum Circuits”<span class="entry-pdf-badge">PDF</span></a>
+            <span class="entry-org">QC4HEP 2026 (LMU Munich) · Munich, Germany</span>
+          </div>
+          <div class="entry-meta">
+            <span class="entry-dates">Feb. 2026</span>
+          </div>
+        </div>
+      </article>
+      <article class="entry">
+        <div class="entry-head">
+          <div class="entry-titles">
+            <a class="entry-title-link" href="posters/acat2025.pdf" target="_blank" rel="noopener">“Scalable continuous-type generative model on superconducting quantum computers”<span class="entry-pdf-badge">PDF</span></a>
             <span class="entry-org">ACAT 2025 (University of Hamburg) · Hamburg, Germany</span>
           </div>
           <div class="entry-meta">
@@ -615,7 +775,7 @@
       <article class="entry">
         <div class="entry-head">
           <div class="entry-titles">
-            <span class="entry-title">Poster: “Precise Quantum Angle Generator Designed for Noisy Quantum Devices”</span>
+            <a class="entry-title-link" href="posters/eps2025.pdf" target="_blank" rel="noopener">“Precise Quantum Angle Generator Designed for Noisy Quantum Devices”<span class="entry-pdf-badge">PDF</span></a>
             <span class="entry-org">EPS 2025 (Palais du Pharo) · Marseille, France</span>
           </div>
           <div class="entry-meta">
@@ -626,7 +786,7 @@
       <article class="entry">
         <div class="entry-head">
           <div class="entry-titles">
-            <span class="entry-title">Poster: “Precise Quantum Angle Generator Designed for Noisy Quantum Devices”</span>
+            <a class="entry-title-link" href="posters/qt4hep2025.pdf" target="_blank" rel="noopener">“Precise Quantum Angle Generator Designed for Noisy Quantum Devices”<span class="entry-pdf-badge">PDF</span></a>
             <span class="entry-org">QT4HEP 2025 (CERN) · Geneva, Switzerland</span>
           </div>
           <div class="entry-meta">
@@ -637,7 +797,7 @@
       <article class="entry">
         <div class="entry-head">
           <div class="entry-titles">
-            <span class="entry-title">Poster: “Precise Quantum Angle Generator Designed for Noisy Quantum Devices”</span>
+            <a class="entry-title-link" href="posters/qutech2025.pdf" target="_blank" rel="noopener">“Precise Quantum Angle Generator Designed for Noisy Quantum Devices”<span class="entry-pdf-badge">PDF</span></a>
             <span class="entry-org">QTech 2024 (Freie Universität Berlin) · Berlin, Germany</span>
           </div>
           <div class="entry-meta">
@@ -648,7 +808,7 @@
       <article class="entry">
         <div class="entry-head">
           <div class="entry-titles">
-            <span class="entry-title">Poster: “Quantum Machine Learning for data analysis at LHCb”</span>
+            <a class="entry-title-link" href="posters/Poster_IFAE.pdf" target="_blank" rel="noopener">“Quantum Machine Learning for data analysis at LHCb”<span class="entry-pdf-badge">PDF</span></a>
             <span class="entry-org">IFAE 2023 (University of Catania) · Catania, Italy</span>
           </div>
           <div class="entry-meta">
@@ -659,7 +819,7 @@
       <article class="entry">
         <div class="entry-head">
           <div class="entry-titles">
-            <span class="entry-title">Poster: “Quantum phase detection generalization from marginal quantum neural network models”</span>
+            <a class="entry-title-link" href="posters/qip.pdf" target="_blank" rel="noopener">“Quantum phase detection generalization from marginal quantum neural network models”<span class="entry-pdf-badge">PDF</span></a>
             <span class="entry-org">QIP 2023 (Ghent University) · Ghent, Belgium</span>
           </div>
           <div class="entry-meta">
@@ -668,10 +828,15 @@
         </div>
       </article>
 
+    </div>
   </section>
-  <section class="cv-section">
-    <h2 class="section-title highlighted">Extracurricular Activity</h2>
+  <section class="cv-section collapsible">
+    <h2 class="section-title highlighted section-title-toggle" tabindex="0" role="button" aria-expanded="false">
+      <span>Extracurricular Activity <span class="section-count">(3)</span></span>
+      <span class="section-toggle-icon" aria-hidden="true">▾</span>
+    </h2>
 
+    <div class="section-body">
       <article class="entry" tabindex="0" aria-expanded="false">
         <div class="entry-head">
           <div class="entry-titles">
@@ -712,10 +877,15 @@
 <li>Taught a three-lesson course spanning fundamentals to advanced topics (bibliography, TikZ, custom commands).</li>        </ul>
       </article>
 
+    </div>
   </section>
-  <section class="cv-section">
-    <h2 class="section-title highlighted">Writing</h2>
+  <section class="cv-section collapsible">
+    <h2 class="section-title highlighted section-title-toggle" tabindex="0" role="button" aria-expanded="false">
+      <span>Writing <span class="section-count">(1)</span></span>
+      <span class="section-toggle-icon" aria-hidden="true">▾</span>
+    </h2>
 
+    <div class="section-body">
       <article class="entry" tabindex="0" aria-expanded="false">
         <div class="entry-head">
           <div class="entry-titles">
@@ -730,10 +900,14 @@
 <li>Authored the tutorial “Supervised and Unsupervised Quantum Machine Learning Models for the Phase Detection of the ANNNI Spin Model” (pennylane.ai/qml/demos/tutorial_annni).</li>        </ul>
       </article>
 
+    </div>
   </section>
   <section class="cv-section">
-    <h2 class="section-title highlighted">Certificates</h2>
+    <h2 class="section-title highlighted">
+      Certificates
+    </h2>
 
+    <div class="section-body">
         <div class="honor-list">
           <div class="honor-row">
             <div class="honor-main">
@@ -757,6 +931,7 @@
 <span class="honor-year">2016</span>            </div>
           </div>
         </div>
+    </div>
   </section>
 
   <section class="cv-section cv-section-muted">
@@ -807,6 +982,25 @@
 
 </div>
 <script>
+  document.querySelectorAll('.entry-title-link').forEach(function (link) {
+    link.addEventListener('click', function (e) { e.stopPropagation(); });
+  });
+
+  document.querySelectorAll('.section-title-toggle').forEach(function (title) {
+    var section = title.closest('.cv-section');
+    function toggle() {
+      var open = section.classList.toggle('expanded');
+      title.setAttribute('aria-expanded', String(open));
+    }
+    title.addEventListener('click', toggle);
+    title.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
+    });
+  });
+
   document.querySelectorAll('.entry[tabindex]').forEach(function (entry) {
     function toggle() {
       var open = entry.classList.toggle('expanded');

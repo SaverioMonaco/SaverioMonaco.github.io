@@ -1,0 +1,57 @@
+# title: Talk title
+# organization: Event or conference name
+# location: City, Country
+# dates: Date of the talk
+# highlights: What you presented or discussed
+# pdf: Relative path to the slides, e.g. "talks/desy-fhscicomp-2026.pdf"
+#      (drop the file in the top-level talks/ directory) — leave "" to hide the link
+#
+- title: "“TBD”"
+  organization: "LHC Quantum Computing Workshop (University of Valencia)"
+  location: "Valencia, Spain"
+  dates: "Sep. 2026"
+  highlights: []
+  pdf: ""
+  tbd: true
+
+- title: "“Training Quantum Generative Models for High Energy Physics”"
+  organization: "FHSciComp 2026 (DESY)"
+  location: "Hamburg, Germany"
+  dates: "Jun. 2026"
+  highlights: []
+  pdf: "talks/fhscicomp2026.pdf"
+
+- title: "“Symbolic Pauli Propagation for Gradient-Enabled Pre-Training of Quantum Circuits”"
+  organization: "CERN QTI Journal Club (CERN)"
+  location: "Geneva, Switzerland"
+  dates: "Feb. 2026"
+  highlights: []
+  pdf: "talks/cernjc.pdf"
+
+- title: "“Performance analysis of the QAG algorithm on QSEA and IBM quantum computers”"
+  organization: "HQML Consortium Meeting"
+  location: "Hamburg, Germany"
+  dates: "Dec. 2025"
+  highlights: []
+  pdf: ""
+
+- title: "“Detector Simulation and Jet-Clustering for HL-LHC with Quantum Computing”"
+  organization: "H2020 Engage Conference (ESRF)"
+  location: "Grenoble, France"
+  dates: "Jun. 2025"
+  highlights: []
+  pdf: "talks/h20202025.pdf"
+
+- title: "“Precise Quantum Angle Generator Designed for Noisy Quantum Devices”"
+  organization: "Helmholtz Matter and the Universe Days 2024 (DESY)"
+  location: "Hamburg, Germany"
+  dates: "Dec. 2024"
+  highlights: []
+  pdf: "talks/mu2024.pdf"
+
+- title: "“Precise Quantum Angle Generator Designed for Noisy Quantum Devices”"
+  organization: "FHSciComp 2024 (DESY)"
+  location: "Hamburg, Germany"
+  dates: "Jun. 2024"
+  highlights: []
+  pdf: "talks/fhscicomp2024.pdf"

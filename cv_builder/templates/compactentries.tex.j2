@@ -8,9 +8,10 @@
 
 {% for entry in entries %}
 %---------------------------------------------------------
+{% set entry_title = ('\href{' ~ entry.pdf ~ '}{' ~ (entry.title | le) ~ '}') if entry.pdf else (entry.title | le) %}
   \cvcompactentry
     { {{- entry.year | le -}} }
-    { {{- entry.title | le -}} }
+    { {{- entry_title -}} }
     { {{- entry.venue | le -}} }
 {% endfor %}
 \end{cvcompactentries}
