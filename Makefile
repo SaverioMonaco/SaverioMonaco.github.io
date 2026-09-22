@@ -6,8 +6,8 @@ BUILD_DIR = build
 CV_SRCS = $(shell find $(BUILD_DIR)/cv -name '*.tex' 2>/dev/null)
 DATA_SRCS = $(shell find $(DATA_DIR) -name '*.yaml' 2>/dev/null)
 
-# Build the site: regenerates index.html, gym.html and cv.pdf at the repo root.
-all: index.html gym.html cv.pdf
+# Build the site: regenerates index.html, gym.html, thesis.html and cv.pdf at the repo root.
+all: index.html gym.html thesis.html cv.pdf
 
 install:
 	pip install -e .
@@ -21,6 +21,9 @@ index.html: generate
 gym.html: generate
 	cp $(BUILD_DIR)/gym.html $@
 
+thesis.html: generate
+	cp $(BUILD_DIR)/thesis.html $@
+
 cv.pdf: generate $(CV_SRCS)
 	$(CC) -output-directory=$(BUILD_DIR) $(BUILD_DIR)/cv.tex
 	biber $(BUILD_DIR)/cv
@@ -29,4 +32,4 @@ cv.pdf: generate $(CV_SRCS)
 	cp $(BUILD_DIR)/cv.pdf $@
 
 clean:
-	rm -rf $(BUILD_DIR) index.html gym.html cv.pdf
+	rm -rf $(BUILD_DIR) index.html gym.html thesis.html cv.pdf

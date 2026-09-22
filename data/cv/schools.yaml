@@ -7,8 +7,9 @@
 - title: "“CERN-MPQ-UIBK School on Quantum Simulation of Fundamental Physics”"
   organization: "CERN"
   location: "Geneva, Switzerland"
-  dates: "Aug. 2026"
-  highlights: []
+  dates: "Aug. 17 - Sep. 4, 2026"
+  highlights:
+    - "Three-week advanced training program on quantum simulation methods and their applications to high-energy and many-body physics"
 
 - title: "“Cineca Quantum Computing school & European Tensor Network school”"
   organization: "University of Padua"

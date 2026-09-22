@@ -1,0 +1,84 @@
+# PhD thesis page (thesis.html) — website only, not included in the CV/resume.
+# Everything here is a draft: edit freely as the dissertation itself evolves
+# (source: /home/samonaco/PhD/tex).
+
+title: "Thesis title — TBD"
+subtitle: ""   # optional subtitle, leave "" to hide
+
+university: "RWTH Aachen University"
+
+# Tag der mündlichen Prüfung (disputation date), as currently planned in the
+# dissertation title page. Format: YYYY-MM-DD. Mark tentative: true while
+# the date isn't finalized/confirmed by the faculty.
+disputation_date: "2027-03-01"
+disputation_date_tentative: true
+
+# Link to the public PDF once available (leave "" to hide the download chip).
+pdf: ""
+
+abstract: |
+  Abstract — to be written once the Summary chapter is finalized.
+
+# Plots/figures shown in their own gallery near the top of the page, above
+# the chapter list — for anything not tied to one specific chapter.
+# `path`: relative path to a PNG/JPG/SVG file (drop it in thesis/figures/).
+# `caption`: short caption shown under the image, "" to omit.
+# Example:
+#   figures:
+#     - path: "thesis/figures/qag_loss.png"
+#       caption: "Training loss of the Quantum Angle Generator."
+figures: []
+
+# One entry per thesis chapter, in reading order. `text` is a short
+# (1–3 sentence) summary — expand as each chapter is drafted. `figures`
+# (optional) embeds plots inline within that chapter's card, same format
+# as the top-level `figures` above — leave [] or omit if none.
+chapters:
+  - title: "Introduction"
+    text: |
+      Motivation, contributions and thesis outline — to be written.
+    figures: []
+
+  - title: "High Energy Physics Experiments"
+    text: |
+      Overview of the CMS experiment, the collision-to-discovery workflow,
+      and the cost of Monte Carlo simulation that motivates faster methods.
+    figures: []
+
+  - title: "Quantum Computing"
+    text: |
+      Introduction to qubits and quantum gates, current hardware
+      realizations, and classical simulation methods (statevector, density
+      matrix, tensor networks) and their regimes of simulability.
+    figures: []
+
+  - title: "Quantum Machine Learning"
+    text: |
+      Parametrized quantum circuits as machine learning models, including
+      the parameter-shift rule for gradient estimation — to be expanded.
+    figures: []
+
+  - title: "The Quantum Angle Generator"
+    text: |
+      Introduces the Quantum Angle Generator (QAG): model architecture,
+      angle encoding schemes, and training — to be expanded.
+    figures: []
+
+  - title: "Other Generative Models"
+    text: |
+      Comparison of classical generative models, quantum GANs and quantum
+      circuit Born machines against the Quantum Angle Generator.
+    figures: []
+
+  - title: "Pauli Propagation for Quantum Machine Learning"
+    text: |
+      Symbolic Pauli propagation in the Heisenberg picture, used for
+      gradient-enabled classical pre-training of parametrized quantum
+      circuits ahead of deployment on hardware.
+    figures: []
+
+  - title: "Summary, Future Work and Conclusion"
+    text: |
+      Summary of results, future work (including a high-energy-physics
+      application of Pauli propagation), and concluding remarks.
+    figures: []

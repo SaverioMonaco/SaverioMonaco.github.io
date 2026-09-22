@@ -215,6 +215,15 @@ def _normalize_upcoming(data: list) -> list:
     ]
 
 
+def _normalize_figures(data: list) -> list:
+    """Normalize a thesis-page figures list (top-level or per-chapter)."""
+    return [
+        {"path": f["path"], "caption": f.get("caption", "") or ""}
+        for f in (data or [])
+        if f.get("path")
+    ]
+
+
 def _embed_image(path: str):
     """Read an image file and return a data-URI dict for it, or None if missing."""
     if not path:
@@ -514,6 +523,33 @@ class Generator:
             secondary_color=_resolve_color(config.get("secondary_text_color") or _DEFAULT_SECONDARY_TEXT_COLOR),
         )
 
+    def generate_thesis_html(self):
+        """Generate thesis.html — only if data/thesis.yaml exists."""
+        thesis_path = self.data_dir / "thesis.yaml"
+        if not thesis_path.is_file():
+            return
+
+        personal = self._load("personal.yaml")
+        config = self._load("config.yaml")
+        thesis = _load(thesis_path)
+
+        if thesis.get("disputation_date"):
+            thesis["disputation_date_display"] = _format_display_date(thesis["disputation_date"])
+
+        thesis["figures"] = _normalize_figures(thesis.get("figures"))
+        for chapter in thesis.get("chapters") or []:
+            chapter["figures"] = _normalize_figures(chapter.get("figures"))
+
+        self._render(
+            "thesis.html.j2", self.output_dir / "thesis.html",
+            personal=personal,
+            thesis=thesis,
+            section_color_highlight=config.get("section_color_highlight", True),
+            highlight_color=_resolve_color(config["highlight_color"]),
+            text_color=_resolve_color(config.get("text_color") or _DEFAULT_TEXT_COLOR),
+            secondary_color=_resolve_color(config.get("secondary_text_color") or _DEFAULT_SECONDARY_TEXT_COLOR),
+        )
+
     def generate(self):
         print("Generating CV sections...")
         self.generate_cv()
@@ -525,4 +561,6 @@ class Generator:
         self.generate_cv_html()
         print("Generating gym progress page...")
         self.generate_gym_html()
+        print("Generating thesis page...")
+        self.generate_thesis_html()
         print("Done!")
