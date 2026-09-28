@@ -6,13 +6,12 @@
 # pdf: Relative path to the slides, e.g. "talks/desy-fhscicomp-2026.pdf"
 #      (drop the file in the top-level talks/ directory) — leave "" to hide the link
 #
-- title: "“TBD”"
+- title: "“Training of Large Shallow Parametrized Quantum Circuits through Pauli Propagation”"
   organization: "LHC Quantum Computing Workshop (University of Valencia)"
   location: "Valencia, Spain"
   dates: "Sep. 2026"
   highlights: []
-  pdf: ""
-  tbd: true
+  pdf: "talks/lhcvalencia2026.pdf"
 
 - title: "“Training Quantum Generative Models for High Energy Physics”"
   organization: "FHSciComp 2026 (DESY)"
