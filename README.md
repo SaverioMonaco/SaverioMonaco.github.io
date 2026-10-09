@@ -62,3 +62,11 @@ cv-builder build --data-dir data --output-dir build
 ```
 
 which regenerates everything under `build/`, then the Makefile copies the relevant files to the repo root.
+
+## Tailoring a CV and motivational letter for an application
+
+```
+make export NAME=acme
+```
+
+This regenerates the sources and copies the current `cv.tex` (with its `cv/` sections and `bib.bib`), a motivational letter template `coverletter.tex`, `awesome-cv.cls` and a small Makefile into `applications/acme/`. Edit the `.tex` files there for that company, then run `make` inside the folder to get `cv.pdf` and `coverletter.pdf`. Exports never overwrite an existing folder, and `applications/` is git-ignored so letters stay private. The letter template itself lives in `cv_builder/templates/coverletter.tex.j2`.

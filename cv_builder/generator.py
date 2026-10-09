@@ -2,6 +2,7 @@ import base64
 import csv
 import mimetypes
 import re
+import shutil
 from datetime import datetime
 from pathlib import Path
 
@@ -496,6 +497,20 @@ class Generator:
 
         self._render("resume.tex.j2", self.output_dir / "resume.tex",
                      personal=personal, config=config, highlight_color_hex=highlight_color_hex)
+
+        self._render("coverletter.tex.j2", self.output_dir / "coverletter.tex",
+                     personal=personal, config=config, highlight_color_hex=highlight_color_hex)
+
+    def export(self, dest_dir: Path, cls_path: Path):
+        """Copy the generated CV and motivational letter LaTeX sources into
+        dest_dir as a standalone project to customize for one application."""
+        dest_dir = Path(dest_dir)
+        dest_dir.mkdir(parents=True)
+        shutil.copy2(self.output_dir / "cv.tex", dest_dir / "cv.tex")
+        shutil.copytree(self.output_dir / "cv", dest_dir / "cv")
+        shutil.copy2(self.output_dir / "coverletter.tex", dest_dir / "coverletter.tex")
+        shutil.copy2(cls_path, dest_dir / cls_path.name)
+        self._render("export.Makefile.j2", dest_dir / "Makefile")
 
     def generate_gym_html(self):
         """Generate examples/gym.html — only if data/gym/*.csv exists."""

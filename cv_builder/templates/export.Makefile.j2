@@ -1,0 +1,20 @@
+# Compiles this application's CV and motivational letter.
+# Exported by cv-builder — edit cv.tex, cv/*.tex and coverletter.tex freely.
+
+.PHONY: all clean
+
+CC = lualatex
+
+all: cv.pdf coverletter.pdf
+
+cv.pdf: cv.tex $(wildcard cv/*.tex) cv/bib.bib
+	$(CC) cv.tex
+	biber cv
+	$(CC) cv.tex
+	$(CC) cv.tex
+
+coverletter.pdf: coverletter.tex
+	$(CC) coverletter.tex
+
+clean:
+	rm -f *.aux *.bbl *.bcf *.blg *.log *.out *.run.xml

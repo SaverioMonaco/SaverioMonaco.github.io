@@ -4,6 +4,32 @@
 # title, journal, year, volume, issue, pages, publisher, doi, url:
 #   Standard BibTeX fields — leave "" to omit a field.
 
+- key: "comb"
+  type: "article"
+  author: "Slim, J. and Monaco, S. and Xue, R. and Krücker, D. and Borras, K."
+  title: "A Coherent Memory Register for Sequential Quantum Generative Modeling, with Application to Calorimeter Showers"
+  journal: "arXiv pre-print"
+  year: "2026"
+  volume: ""
+  issue: ""
+  pages: ""
+  publisher: ""
+  doi: ""
+  url: "https://arxiv.org/abs/2609.23050"
+
+- key: "qpce"
+  type: "article"
+  author: "Slim, J. and Monaco, S. and Rehm, F. and Krücker, D. and Gaede, F. and Borras, K."
+  title: "Interferometric Quantum Polynomial Chaos Expansion as a Generative Model for Calorimeter Shower Simulation"
+  journal: "arXiv pre-print"
+  year: "2026"
+  volume: ""
+  issue: ""
+  pages: ""
+  publisher: ""
+  doi: ""
+  url: "https://arxiv.org/abs/2608.05405"
+
 - key: "ciqp"
   type: "article"
   author: "Slim, J. and Monaco, S. and Rehm, F. and Krücker, D. and Borras, K."

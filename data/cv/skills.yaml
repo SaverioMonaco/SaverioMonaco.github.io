@@ -6,6 +6,7 @@
     - "PennyLane"
     - "Qiskit"
     - "Quimb"
+    - "TeNPy"
     - "Yao.jl"
 
 - category: "Programming Languages"
@@ -27,11 +28,14 @@
     - "JAX"
     - "PyTorch"
     - "Keras"
+    - "Optax"
+    - "scikit-learn"
 
 - category: "Other Libraries"
   skills:
     - "Pandas"
     - "NumPy"
+    - "SciPy"
     - "Matplotlib"
     - "BeautifulSoup"
 
