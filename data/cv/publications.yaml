@@ -4,6 +4,19 @@
 # title, journal, year, volume, issue, pages, publisher, doi, url:
 #   Standard BibTeX fields — leave "" to omit a field.
 
+- key: "pp-pretraining"
+  type: "article"
+  author: "Monaco, S. and Slim, J. and Xue, R. and Krücker, D. and Borras, K."
+  title: "Classical Pre-Training of Large Shallow Parametrized Quantum Circuits through Pauli Propagation and deployment on Quantum Hardware"
+  journal: "arXiv pre-print"
+  year: "2026"
+  volume: ""
+  issue: ""
+  pages: ""
+  publisher: ""
+  doi: ""
+  url: "https://arxiv.org/abs/2610.32571"
+
 - key: "comb"
   type: "article"
   author: "Slim, J. and Monaco, S. and Xue, R. and Krücker, D. and Borras, K."

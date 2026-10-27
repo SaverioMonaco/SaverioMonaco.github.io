@@ -15,14 +15,6 @@
   note: "S. Monaco et al. Manuscript in preparation."
   target: "2026"
 
-- title: "Classical Pre-Training of Large Shallow Parametrized Quantum Circuits through Pauli Propagation"
-  note: "S. Monaco, J. Slim, F. Rehm, D. Krücker, K. Borras. Manuscript in preparation."
-  target: "2026"
-
-- title: "Study of Ansätze under Pauli Propagation"
-  note: "S. Monaco, J. Slim, F. Rehm, D. Krücker, K. Borras. Manuscript in preparation."
-  target: "2026"
-
 - title: "PennyLane Tutorial - Author"
   note: "Author a PennyLane (Xanadu) tutorial on Symbolic Pauli Propagation for Gradient-Enabled Pre-Training of Quantum Circuits."
   target: "2026"
