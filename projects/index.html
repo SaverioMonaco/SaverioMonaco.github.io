@@ -112,27 +112,41 @@
     transform: translateY(-1px);
   }
 
-  /* Header (matches gym.html's .page-header) */
-  .page-header { margin-top: 2.75rem; margin-bottom: 1.75rem; }
+  /* Header */
+  .page-header { text-align: center; margin-top: 2.75rem; margin-bottom: 2.25rem; }
   .page-header h1 {
-    font-size: clamp(1.5rem, 4.5vw, 2.1rem);
-    margin: 0 0 .3rem;
+    font-size: clamp(1.7rem, 5vw, 2.5rem);
+    margin: 0 0 .2rem;
+    letter-spacing: .01em;
   }
-  .page-header p {
-    color: var(--secondary);
+  .page-header .subtitle {
+    color: var(--accent);
+    font-weight: 600;
     margin: 0;
+    font-size: clamp(.95rem, 2.4vw, 1.1rem);
   }
 
-  /* Project cards (same look as the CV's entry cards) */
+  /* Sections */
+  section.cv-section { margin-bottom: 2rem; }
+  .section-title {
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    font-weight: 700;
+    margin: 0 0 .9rem;
+    padding-bottom: .3rem;
+    border-bottom: 2px solid var(--accent);
+    color: var(--accent);
+  }
+
+  /* Project cards (same look and behaviour as the CV's entry cards) */
   .entry {
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: .85rem 1rem;
     margin-bottom: .6rem;
-    display: block;
-    text-decoration: none;
-    color: var(--text);
+    cursor: pointer;
     transition: border-color .15s ease, box-shadow .15s ease;
   }
   .entry:hover, .entry:focus-visible {
@@ -140,8 +154,70 @@
     box-shadow: 0 2px 12px rgba(0, 0, 0, .07);
   }
   .entry:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: .75rem;
+  }
+  .entry-titles { min-width: 0; flex: 1 1 auto; }
   .entry-title { font-weight: 700; }
-  .entry-org { display: block; color: var(--secondary); font-size: .92rem; margin-top: .15rem; }
+  .entry-org { display: block; color: var(--secondary); font-size: .92rem; }
+  .entry-meta { display: flex; align-items: baseline; gap: .5rem; white-space: nowrap; flex: 0 0 auto; }
+  .entry-dates { color: var(--secondary); font-size: .85rem; }
+  .entry-toggle {
+    display: inline-block;
+    color: var(--accent);
+    font-size: .8rem;
+    transition: transform .2s ease;
+  }
+  .entry-details {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height .25s ease, opacity .2s ease, margin-top .25s ease;
+  }
+  .entry-details p { margin: 0 0 .5rem; font-size: .92rem; }
+  .entry.expanded .entry-details {
+    max-height: 30em;
+    opacity: 1;
+    margin-top: .55rem;
+  }
+  .entry.expanded .entry-toggle { transform: rotate(180deg); }
+  @media (hover: hover) and (pointer: fine) {
+    .entry:hover .entry-details {
+      max-height: 30em;
+      opacity: 1;
+      margin-top: .55rem;
+    }
+    .entry:hover .entry-toggle { transform: rotate(180deg); }
+  }
+
+  .tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .6rem; }
+  .tag {
+    font-size: .78rem;
+    padding: .12rem .55rem;
+    border-radius: 999px;
+    background: var(--chip-bg);
+    border: 1px solid var(--border);
+    color: var(--secondary);
+  }
+  .pub-links { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .pub-links a {
+    font-size: .78rem;
+    padding: .12rem .55rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    transition: border-color .15s ease, color .15s ease;
+  }
+  .pub-links a:hover, .pub-links a:focus-visible { border-color: var(--accent); color: var(--accent); }
+
+  @media print {
+    .entry-details { max-height: none !important; opacity: 1 !important; margin-top: .55rem !important; }
+    .entry-toggle, .theme-toggle, .top-nav { display: none; }
+    .entry { break-inside: avoid; }
+  }
 </style>
 </head>
 <body>
@@ -153,35 +229,117 @@
 
   <header class="page-header">
     <h1>Projects</h1>
+    <p class="subtitle">Code &amp; templates</p>
   </header>
 
-  <a class="entry" href="pauli-propagator/">
-    <span class="entry-title">Pauli-Propagator</span>
-    <span class="entry-org">A Pennylane-based toolkit for approximate symbolic Pauli propagation and evaluation of quantum circuit observables &middot; docs on Read the Docs</span>
-  </a>
+  <section class="cv-section">
+    <h2 class="section-title">Quantum computing</h2>
+    <article class="entry" tabindex="0" aria-expanded="false">
+      <div class="entry-head">
+        <div class="entry-titles">
+          <span class="entry-title">Pauli-Propagator</span>
+          <span class="entry-org">Approximate symbolic Pauli propagation</span>
+        </div>
+        <div class="entry-meta"><span class="entry-toggle" aria-hidden="true">▾</span></div>
+      </div>
+      <div class="entry-details">
+        <p>A PennyLane-based toolkit for approximate symbolic Pauli propagation and evaluation of quantum circuit observables.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">PennyLane</span><span class="tag">Quantum simulation</span></div>
+        <div class="pub-links">
+          <a href="https://github.com/SaverioMonaco/pauli-propagator" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://pauli-propagator.readthedocs.io/en/latest/" target="_blank" rel="noopener">Docs</a>
+        </div>
+      </div>
+    </article>
+    <article class="entry" tabindex="0" aria-expanded="false">
+      <div class="entry-head">
+        <div class="entry-titles">
+          <span class="entry-title">Quantum Phase Detection · ANNNI</span>
+          <span class="entry-org">CERN Quantum Technology Initiative</span>
+        </div>
+        <div class="entry-meta"><span class="entry-toggle" aria-hidden="true">▾</span></div>
+      </div>
+      <div class="entry-details">
+        <p>Quantum convolutional neural networks and quantum autoencoders to detect the phases of the ANNNI model, built on PennyLane.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">PennyLane</span><span class="tag">QML</span></div>
+        <div class="pub-links">
+          <a href="https://github.com/CERN-QTI/Quantum-Phase-Detection-ANNNI" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </article>
+    <article class="entry" tabindex="0" aria-expanded="false">
+      <div class="entry-head">
+        <div class="entry-titles">
+          <span class="entry-title">MPS Born Machines</span>
+          <span class="entry-org">Tensor-network generative modelling</span>
+        </div>
+        <div class="entry-meta"><span class="entry-toggle" aria-hidden="true">▾</span></div>
+      </div>
+      <div class="entry-details">
+        <p>A quantum-inspired generative model using matrix product states for unsupervised learning.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Tensor networks</span><span class="tag">Generative models</span></div>
+        <div class="pub-links">
+          <a href="https://github.com/eigen-carmona/mps_born_machines" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </article>
+  </section>
 
-  <a class="entry" href="https://github.com/SaverioMonaco/DESY-baposter" target="_blank" rel="noopener">
-    <span class="entry-title">DESY-baposter</span>
-    <span class="entry-org">A DESY-themed fork of baposter, a LaTeX poster class &middot; on GitHub</span>
-  </a>
-
-  <a class="entry" href="https://github.com/SaverioMonaco/SINTEF" target="_blank" rel="noopener">
-    <span class="entry-title">SINTEF Beamer Template</span>
-    <span class="entry-org">A 16:9 LaTeX Beamer theme with color palettes, custom logos and footline, and uncounted backup slides &middot; on GitHub</span>
-  </a>
-
-  <a class="entry" href="https://github.com/eigen-carmona/mps_born_machines" target="_blank" rel="noopener">
-    <span class="entry-title">MPS Born Machines</span>
-    <span class="entry-org">A quantum-inspired generative model using matrix product states for unsupervised learning &middot; on GitHub</span>
-  </a>
-
-  <a class="entry" href="https://github.com/CERN-QTI/Quantum-Phase-Detection-ANNNI" target="_blank" rel="noopener">
-    <span class="entry-title">Quantum Phase Detection · ANNNI</span>
-    <span class="entry-org">Quantum convolutional neural networks and quantum autoencoders to detect phases of the ANNNI model, built on PennyLane &middot; on GitHub</span>
-  </a>
+  <section class="cv-section">
+    <h2 class="section-title">LaTeX templates</h2>
+    <article class="entry" tabindex="0" aria-expanded="false">
+      <div class="entry-head">
+        <div class="entry-titles">
+          <span class="entry-title">DESY-baposter</span>
+          <span class="entry-org">LaTeX poster class</span>
+        </div>
+        <div class="entry-meta"><span class="entry-toggle" aria-hidden="true">▾</span></div>
+      </div>
+      <div class="entry-details">
+        <p>A DESY-themed fork of baposter, a LaTeX poster class.</p>
+        <div class="tags"><span class="tag">LaTeX</span></div>
+        <div class="pub-links">
+          <a href="https://github.com/SaverioMonaco/DESY-baposter" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </article>
+    <article class="entry" tabindex="0" aria-expanded="false">
+      <div class="entry-head">
+        <div class="entry-titles">
+          <span class="entry-title">SINTEF Beamer Template</span>
+          <span class="entry-org">LaTeX presentation theme</span>
+        </div>
+        <div class="entry-meta"><span class="entry-toggle" aria-hidden="true">▾</span></div>
+      </div>
+      <div class="entry-details">
+        <p>A 16:9 LaTeX Beamer theme with color palettes, custom logos and footline, and uncounted backup slides.</p>
+        <div class="tags"><span class="tag">LaTeX</span><span class="tag">Beamer</span></div>
+        <div class="pub-links">
+          <a href="https://github.com/SaverioMonaco/SINTEF" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </article>
+  </section>
 
 </div>
 <script>
+  document.querySelectorAll('.entry-details a').forEach(function (link) {
+    link.addEventListener('click', function (e) { e.stopPropagation(); });
+  });
+  document.querySelectorAll('.entry[tabindex]').forEach(function (entry) {
+    function toggle() {
+      var open = entry.classList.toggle('expanded');
+      entry.setAttribute('aria-expanded', String(open));
+    }
+    entry.addEventListener('click', toggle);
+    entry.addEventListener('keydown', function (e) {
+      if (e.target !== entry) return;
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
+      }
+    });
+  });
   (function () {
     var root = document.documentElement;
     var btn = document.getElementById('theme-toggle');

@@ -5,7 +5,7 @@
 # highlights: What the poster covered
 # pdf: Relative path to the poster, e.g. "posters/acat2025-qag.pdf"
 #      (drop the file in the top-level posters/ directory) — leave "" to hide the link
-- title: "“Training of Large Shallow Parametrized Quantum Circuits through Pauli Propagation”"
+- title: "“Training of Large Shallow Parametrized Quantum Circuits with Pauli Propagation”"
   organization: "QT4HEP 2026 (CERN)"
   location: "Geneva, Switzerland"
   dates: "Nov. 2026"
