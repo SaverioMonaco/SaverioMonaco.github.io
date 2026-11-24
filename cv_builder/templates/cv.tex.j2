@@ -91,13 +91,21 @@
 % wraps (\cventry centers the right column vertically instead).
 %   #1 title             #3 place / journal (accent)
 %   #2 subtitle          #4 date / year
+% A thin accent corner (an "L") marks the bottom-left of each entry so entries
+% are easy to tell apart.
+\newsavebox{\acvstackbox}
+\newcommand*{\acvstackcorner}{%
+  {\color{awesome!30}\rule{0.4pt}{2.2mm}\rule{3mm}{0.4pt}}}
 \newcommand*{\acvstackentry}[4]{%
   \noindent% no \par here: inside the bibliography list it would add an empty line after \item
-  \parbox[t]{\dimexpr\textwidth-4.7cm\relax}{%
-    \fontsize{9pt}{12pt}\selectfont\raggedright #1\par #2}%
-  \hfill
-  \parbox[t]{4.5cm}{%
-    \fontsize{9pt}{12pt}\selectfont\raggedleft #3\par #4}%
+  \sbox{\acvstackbox}{%
+    \parbox[t]{\dimexpr\textwidth-4.7cm\relax}{%
+      \fontsize{9pt}{12pt}\selectfont\raggedright #1\par #2}%
+    \hspace{2mm}%
+    \parbox[t]{4.5cm}{%
+      \fontsize{9pt}{12pt}\selectfont\raggedleft #3\par #4}}%
+  \rlap{\hspace{-1.8mm}\raisebox{\dimexpr-\dp\acvstackbox-0.9mm\relax}{\acvstackcorner}}%
+  \usebox{\acvstackbox}%
   \par\vspace{2.2mm}%
 }
 
