@@ -210,10 +210,37 @@
     transition: border-color .15s ease, box-shadow .15s ease;
   }
   .entry[tabindex] { cursor: pointer; }
-  .entry:hover, .entry:focus-visible {
+  .entry[tabindex]:hover, .entry[tabindex]:focus-visible {
     border-color: var(--accent);
     box-shadow: 0 2px 12px rgba(0, 0, 0, .07);
   }
+  /* Cards that open a PDF: accent stripe, whole card clickable, lift on hover */
+  .entry.entry-link {
+    position: relative;
+    cursor: pointer;
+    border-left: 3px solid var(--accent);
+    transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+  }
+  .entry.entry-link:hover, .entry.entry-link:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .12);
+    transform: translateY(-2px);
+  }
+  .entry.entry-link .entry-title-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+  .entry.entry-link .entry-title-link:focus-visible { outline: none; }
+  .entry.entry-link:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .entry.entry-link:hover .entry-title-link { color: var(--accent); }
+  .entry.entry-link:hover .entry-pdf-badge { background: var(--accent); color: var(--card-bg); }
+  /* Expandable cards that also carry a link: stripe + clickable title/badge
+     (clicking elsewhere on the card still expands it) */
+  .entry.entry-has-link { border-left: 3px solid var(--accent); }
+  .entry.entry-has-link .entry-title-link:hover .entry-pdf-badge,
+  .entry.entry-has-link .entry-title-link:focus-visible .entry-pdf-badge { background: var(--accent); color: var(--card-bg); }
   .entry:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .entry.entry-tbd {
     background: transparent;
@@ -247,6 +274,7 @@
     padding: 0 .45rem;
     margin-left: .4rem;
     vertical-align: middle;
+    transition: background .15s ease, color .15s ease;
   }
   .entry-org { display: block; color: var(--secondary); font-size: .92rem; }
   .entry-meta { display: flex; align-items: baseline; gap: .5rem; white-space: nowrap; flex: 0 0 auto; }
@@ -427,10 +455,10 @@
     </h2>
 
     <div class="section-body">
-      <article class="entry" tabindex="0" aria-expanded="false">
+      <article class="entry entry-has-link" tabindex="0" aria-expanded="false">
         <div class="entry-head">
           <div class="entry-titles">
-            <span class="entry-title">PhD in Quantum Generative Models for High Energy Physics (ENGAGE)</span>
+            <a class="entry-title-link" href="thesis.html">PhD in Quantum Generative Models for High Energy Physics (ENGAGE)<span class="entry-pdf-badge">Thesis →</span></a>
             <span class="entry-org">RWTH Aachen University &amp; DESY · Hamburg, Germany</span>
           </div>
           <div class="entry-meta">
@@ -438,7 +466,7 @@
 <span class="entry-toggle" aria-hidden="true">▾</span>          </div>
         </div>
         <ul class="entry-details">
-<li>Marie Skłodowska-Curie PhD Fellowship</li><li>Thesis: Detector Simulation and Jet Clustering for HL-LHC with Quantum Computing</li>        </ul>
+<li>Marie Skłodowska-Curie PhD Fellowship</li><li>Thesis: Development of Quantum Computing Models for Calorimeter Simulation in Particle Physics</li>        </ul>
       </article>
       <article class="entry" tabindex="0" aria-expanded="false">
         <div class="entry-head">
@@ -682,10 +710,10 @@
     </h2>
 
     <div class="section-body">
-      <article class="entry">
+      <article class="entry entry-link">
         <div class="entry-head">
           <div class="entry-titles">
-            <a class="entry-title-link" href="talks/lhcvalencia2026.pdf" target="_blank" rel="noopener">“Training of Large Shallow Parametrized Quantum Circuits through Pauli Propagation”<span class="entry-pdf-badge">PDF</span></a>
+            <a class="entry-title-link" href="talks/lhcvalencia2026.pdf" target="_blank" rel="noopener">“Training of Large Shallow Parametrized Quantum Circuits through Pauli Propagation”<span class="entry-pdf-badge">PDF ↗</span></a>
             <span class="entry-org">LHC Quantum Computing Workshop (University of Valencia) · Valencia, Spain</span>
           </div>
           <div class="entry-meta">
@@ -693,10 +721,10 @@
           </div>
         </div>
       </article>
-      <article class="entry">
+      <article class="entry entry-link">
         <div class="entry-head">
           <div class="entry-titles">
-            <a class="entry-title-link" href="talks/fhscicomp2026.pdf" target="_blank" rel="noopener">“Training Quantum Generative Models for High Energy Physics”<span class="entry-pdf-badge">PDF</span></a>
+            <a class="entry-title-link" href="talks/fhscicomp2026.pdf" target="_blank" rel="noopener">“Training Quantum Generative Models for High Energy Physics”<span class="entry-pdf-badge">PDF ↗</span></a>
             <span class="entry-org">FHSciComp 2026 (DESY) · Hamburg, Germany</span>
           </div>
           <div class="entry-meta">
@@ -704,10 +732,10 @@
           </div>
         </div>
       </article>
-      <article class="entry">
+      <article class="entry entry-link">
         <div class="entry-head">
           <div class="entry-titles">
-            <a class="entry-title-link" href="talks/cernjc.pdf" target="_blank" rel="noopener">“Symbolic Pauli Propagation for Gradient-Enabled Pre-Training of Quantum Circuits”<span class="entry-pdf-badge">PDF</span></a>
+            <a class="entry-title-link" href="talks/cernjc.pdf" target="_blank" rel="noopener">“Symbolic Pauli Propagation for Gradient-Enabled Pre-Training of Quantum Circuits”<span class="entry-pdf-badge">PDF ↗</span></a>
             <span class="entry-org">CERN QTI Journal Club (CERN) · Geneva, Switzerland</span>
           </div>
           <div class="entry-meta">
@@ -726,10 +754,10 @@
           </div>
         </div>
       </article>
-      <article class="entry">
+      <article class="entry entry-link">
         <div class="entry-head">
           <div class="entry-titles">
-            <a class="entry-title-link" href="talks/h20202025.pdf" target="_blank" rel="noopener">“Detector Simulation and Jet-Clustering for HL-LHC with Quantum Computing”<span class="entry-pdf-badge">PDF</span></a>
+            <a class="entry-title-link" href="talks/h20202025.pdf" target="_blank" rel="noopener">“Detector Simulation and Jet-Clustering for HL-LHC with Quantum Computing”<span class="entry-pdf-badge">PDF ↗</span></a>
             <span class="entry-org">H2020 Engage Conference (ESRF) · Grenoble, France</span>
           </div>
           <div class="entry-meta">
@@ -737,10 +765,10 @@
           </div>
         </div>
       </article>
-      <article class="entry">
+      <article class="entry entry-link">
         <div class="entry-head">
           <div class="entry-titles">
-            <a class="entry-title-link" href="talks/mu2024.pdf" target="_blank" rel="noopener">“Precise Quantum Angle Generator Designed for Noisy Quantum Devices”<span class="entry-pdf-badge">PDF</span></a>
+            <a class="entry-title-link" href="talks/mu2024.pdf" target="_blank" rel="noopener">“Precise Quantum Angle Generator Designed for Noisy Quantum Devices”<span class="entry-pdf-badge">PDF ↗</span></a>
             <span class="entry-org">Helmholtz Matter and the Universe Days 2024 (DESY) · Hamburg, Germany</span>
           </div>
           <div class="entry-meta">
@@ -748,10 +776,10 @@
           </div>
         </div>
       </article>
-      <article class="entry">
+      <article class="entry entry-link">
         <div class="entry-head">
           <div class="entry-titles">
-            <a class="entry-title-link" href="talks/fhscicomp2024.pdf" target="_blank" rel="noopener">“Precise Quantum Angle Generator Designed for Noisy Quantum Devices”<span class="entry-pdf-badge">PDF</span></a>
+            <a class="entry-title-link" href="talks/fhscicomp2024.pdf" target="_blank" rel="noopener">“Precise Quantum Angle Generator Designed for Noisy Quantum Devices”<span class="entry-pdf-badge">PDF ↗</span></a>
             <span class="entry-org">FHSciComp 2024 (DESY) · Hamburg, Germany</span>
           </div>
           <div class="entry-meta">
@@ -769,10 +797,10 @@
     </h2>
 
     <div class="section-body">
-      <article class="entry">
+      <article class="entry entry-link">
         <div class="entry-head">
           <div class="entry-titles">
-            <a class="entry-title-link" href="posters/qt4hep2026.pdf" target="_blank" rel="noopener">“Training of Large Shallow Parametrized Quantum Circuits with Pauli Propagation”<span class="entry-pdf-badge">PDF</span></a>
+            <a class="entry-title-link" href="posters/qt4hep2026.pdf" target="_blank" rel="noopener">“Training of Large Shallow Parametrized Quantum Circuits with Pauli Propagation”<span class="entry-pdf-badge">PDF ↗</span></a>
             <span class="entry-org">QT4HEP 2026 (CERN) · Geneva, Switzerland</span>
           </div>
           <div class="entry-meta">
@@ -780,10 +808,10 @@
           </div>
         </div>
       </article>
-      <article class="entry">
+      <article class="entry entry-link">
         <div class="entry-head">
           <div class="entry-titles">
-            <a class="entry-title-link" href="posters/qc4hep2026.pdf" target="_blank" rel="noopener">“Symbolic Pauli Propagation for Gradient Enabled Pre-Training of Quantum Circuits”<span class="entry-pdf-badge">PDF</span></a>
+            <a class="entry-title-link" href="posters/qc4hep2026.pdf" target="_blank" rel="noopener">“Symbolic Pauli Propagation for Gradient Enabled Pre-Training of Quantum Circuits”<span class="entry-pdf-badge">PDF ↗</span></a>
             <span class="entry-org">QC4HEP 2026 (LMU Munich) · Munich, Germany</span>
           </div>
           <div class="entry-meta">
@@ -791,10 +819,10 @@
           </div>
         </div>
       </article>
-      <article class="entry">
+      <article class="entry entry-link">
         <div class="entry-head">
           <div class="entry-titles">
-            <a class="entry-title-link" href="posters/acat2025.pdf" target="_blank" rel="noopener">“Scalable continuous-type generative model on superconducting quantum computers”<span class="entry-pdf-badge">PDF</span></a>
+            <a class="entry-title-link" href="posters/acat2025.pdf" target="_blank" rel="noopener">“Scalable continuous-type generative model on superconducting quantum computers”<span class="entry-pdf-badge">PDF ↗</span></a>
             <span class="entry-org">ACAT 2025 (University of Hamburg) · Hamburg, Germany</span>
           </div>
           <div class="entry-meta">
@@ -802,10 +830,10 @@
           </div>
         </div>
       </article>
-      <article class="entry">
+      <article class="entry entry-link">
         <div class="entry-head">
           <div class="entry-titles">
-            <a class="entry-title-link" href="posters/eps2025.pdf" target="_blank" rel="noopener">“Precise Quantum Angle Generator Designed for Noisy Quantum Devices”<span class="entry-pdf-badge">PDF</span></a>
+            <a class="entry-title-link" href="posters/eps2025.pdf" target="_blank" rel="noopener">“Precise Quantum Angle Generator Designed for Noisy Quantum Devices”<span class="entry-pdf-badge">PDF ↗</span></a>
             <span class="entry-org">EPS 2025 (Palais du Pharo) · Marseille, France</span>
           </div>
           <div class="entry-meta">
@@ -813,10 +841,10 @@
           </div>
         </div>
       </article>
-      <article class="entry">
+      <article class="entry entry-link">
         <div class="entry-head">
           <div class="entry-titles">
-            <a class="entry-title-link" href="posters/qt4hep2025.pdf" target="_blank" rel="noopener">“Precise Quantum Angle Generator Designed for Noisy Quantum Devices”<span class="entry-pdf-badge">PDF</span></a>
+            <a class="entry-title-link" href="posters/qt4hep2025.pdf" target="_blank" rel="noopener">“Precise Quantum Angle Generator Designed for Noisy Quantum Devices”<span class="entry-pdf-badge">PDF ↗</span></a>
             <span class="entry-org">QT4HEP 2025 (CERN) · Geneva, Switzerland</span>
           </div>
           <div class="entry-meta">
@@ -824,10 +852,10 @@
           </div>
         </div>
       </article>
-      <article class="entry">
+      <article class="entry entry-link">
         <div class="entry-head">
           <div class="entry-titles">
-            <a class="entry-title-link" href="posters/qutech2025.pdf" target="_blank" rel="noopener">“Precise Quantum Angle Generator Designed for Noisy Quantum Devices”<span class="entry-pdf-badge">PDF</span></a>
+            <a class="entry-title-link" href="posters/qutech2025.pdf" target="_blank" rel="noopener">“Precise Quantum Angle Generator Designed for Noisy Quantum Devices”<span class="entry-pdf-badge">PDF ↗</span></a>
             <span class="entry-org">QTech 2024 (Freie Universität Berlin) · Berlin, Germany</span>
           </div>
           <div class="entry-meta">
@@ -835,10 +863,10 @@
           </div>
         </div>
       </article>
-      <article class="entry">
+      <article class="entry entry-link">
         <div class="entry-head">
           <div class="entry-titles">
-            <a class="entry-title-link" href="posters/Poster_IFAE.pdf" target="_blank" rel="noopener">“Quantum Machine Learning for data analysis at LHCb”<span class="entry-pdf-badge">PDF</span></a>
+            <a class="entry-title-link" href="posters/Poster_IFAE.pdf" target="_blank" rel="noopener">“Quantum Machine Learning for data analysis at LHCb”<span class="entry-pdf-badge">PDF ↗</span></a>
             <span class="entry-org">IFAE 2023 (University of Catania) · Catania, Italy</span>
           </div>
           <div class="entry-meta">
@@ -846,10 +874,10 @@
           </div>
         </div>
       </article>
-      <article class="entry">
+      <article class="entry entry-link">
         <div class="entry-head">
           <div class="entry-titles">
-            <a class="entry-title-link" href="posters/qip.pdf" target="_blank" rel="noopener">“Quantum phase detection generalization from marginal quantum neural network models”<span class="entry-pdf-badge">PDF</span></a>
+            <a class="entry-title-link" href="posters/qip.pdf" target="_blank" rel="noopener">“Quantum phase detection generalization from marginal quantum neural network models”<span class="entry-pdf-badge">PDF ↗</span></a>
             <span class="entry-org">QIP 2023 (Ghent University) · Ghent, Belgium</span>
           </div>
           <div class="entry-meta">
@@ -916,10 +944,10 @@
     </h2>
 
     <div class="section-body">
-      <article class="entry" tabindex="0" aria-expanded="false">
+      <article class="entry entry-has-link" tabindex="0" aria-expanded="false">
         <div class="entry-head">
           <div class="entry-titles">
-            <span class="entry-title">PennyLane Tutorial - Author</span>
+            <a class="entry-title-link" href="https://pennylane.ai/qml/demos/tutorial_annni" target="_blank" rel="noopener">PennyLane Tutorial - Author<span class="entry-pdf-badge">Tutorial ↗</span></a>
             <span class="entry-org">PennyLane (Xanadu) · Online</span>
           </div>
           <div class="entry-meta">

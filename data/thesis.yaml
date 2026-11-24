@@ -2,10 +2,11 @@
 # Everything here is a draft: edit freely as the dissertation itself evolves
 # (source: /home/samonaco/PhD/tex).
 
-title: "Thesis title — TBD"
+title: "Development of Quantum Computing Models for Calorimeter Simulation in Particle Physics"
 subtitle: ""   # optional subtitle, leave "" to hide
 
 university: "RWTH Aachen University"
+university_url: "https://www.rwth-aachen.de"   # optional, makes the chip a link
 
 # Tag der mündlichen Prüfung (disputation date), as currently planned in the
 # dissertation title page. Format: YYYY-MM-DD. Mark tentative: true while
@@ -51,24 +52,131 @@ chapters:
       realizations, and classical simulation methods (statevector, density
       matrix, tensor networks) and their regimes of simulability.
     figures: []
+    subsections:
+      - title: "Introduction to Quantum Computing"
+        text: |
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua.
+        figures:
+          - path: "thesis/figures/bloch.svg"
+            caption: ""
+      - title: "Classical Simulation Methods"
+        text: |
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua.
+        figures:
+          - path: "thesis/figures/simregions.svg"
+            caption: ""
 
   - title: "Quantum Machine Learning"
     text: |
       Parametrized quantum circuits as machine learning models, including
       the parameter-shift rule for gradient estimation — to be expanded.
     figures: []
+    subsections:
+      - title: "Parametrized Quantum Circuits"
+        text: |
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua.
+        figures:
+          - path: "thesis/figures/qml_model.svg"
+            caption: ""
+      - title: "Trainability and Barren Plateaus"
+        text: |
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua.
+        figures:
+          - path: "thesis/figures/bp_landscape.svg"
+            caption: ""
 
   - title: "The Quantum Angle Generator"
     text: |
       Introduces the Quantum Angle Generator (QAG): model architecture,
       angle encoding schemes, and training — to be expanded.
     figures: []
+    subsections:
+      - title: "Quantum Angle Generator"
+        text: |
+          Angle encoding of random inputs, a parametrized unitary, and one
+          expectation value per qubit decoded into the energy of one cell.
+        # The repository is still private: when it is public, add
+        #   url: "https://github.com/desyqml/QAG"
+        #   link_label: "GitHub"
+        # and remove `status`.
+        status: "Private repository"
+        paper: "https://arxiv.org/abs/2307.05253"
+        paper_label: "arXiv"
+        figures:
+          - path: "thesis/figures/qag_model.svg"
+            caption: ""
 
   - title: "Other Generative Models"
     text: |
-      Comparison of classical generative models, quantum GANs and quantum
-      circuit Born machines against the Quantum Angle Generator.
+      Classical generative models for calorimeter simulation, the multi
+      universal approximator (one independent qubit per pixel, no entanglement),
+      and four quantum generative models for calorimeter showers developed with
+      Jamal Slim: the coherent memory register, QFAN, the interferometric QPCE
+      and the compiled IQP Born machine.
     figures: []
+    # Optional sub-boxes inside the chapter card: title, text, url (+ link_label),
+    # paper (+ paper_label) or papers: [{url, label}, ...] for extra badges, status (a non-link note), figures
+    subsections:
+      - title: "Multi Universal Approximator"
+        text: |
+          One independent single-qubit universal approximator per output (pixel),
+          all sharing the same input noise, without any entangling gate.
+        url: "https://github.com/SaverioMonaco/Multi-Universal-Approximator"
+        link_label: "GitHub"
+        figures:
+          - path: "thesis/figures/mua.svg"
+            caption: ""
+      - title: "Coherent Memory Register"
+        text: |
+          In each round a unitary entangles a work register with a memory register.
+          The work register is measured to give one component of the sample, while the
+          memory is never measured and carries the correlations between rounds.
+        url: "https://github.com/jamalslim/comb"
+        link_label: "GitHub"
+        paper: "https://arxiv.org/abs/2609.23050"
+        paper_label: "arXiv"
+        figures:
+          - path: "thesis/figures/comb.svg"
+            caption: ""
+      - title: "Quantum Feature Amplification Network"
+        text: |
+          An autoregressive model: every step runs the same circuit, with encoding
+          angles computed from the pixels already generated, and a linear decoder turns
+          the measured parities into the next block of pixels.
+        url: "https://github.com/jamalslim/qfan_project"
+        link_label: "GitHub"
+        paper: "https://arxiv.org/abs/2605.16044"
+        paper_label: "arXiv"
+        figures:
+          - path: "thesis/figures/qfan.svg"
+            caption: ""
+      - title: "Interferometric Quantum Polynomial Chaos Expansion"
+        text: |
+          Noise germs are re-uploaded at the start of every block of an interferometer,
+          so the depth sets the order of the chaos expansion. One expectation value per
+          qubit gives the energy of one calorimeter cell.
+        url: "https://github.com/jamalslim/qpce_code"
+        link_label: "GitHub"
+        paper: "https://arxiv.org/abs/2608.05405"
+        paper_label: "arXiv"
+        figures:
+          - path: "thesis/figures/qpce.svg"
+            caption: ""
+      - title: "Compiled IQP Born Machine"
+        text: |
+          An IQP Born machine for calorimeter images at 64 qubits. The mixture of IQP
+          circuits is compiled into a single IQP circuit with a few ancilla qubits.
+        url: "https://github.com/jamalslim/ciqp-moiqp"
+        link_label: "GitHub"
+        paper: "https://arxiv.org/abs/2605.27735"
+        paper_label: "arXiv"
+        figures:
+          - path: "thesis/figures/ciqp.svg"
+            caption: ""
 
   - title: "Pauli Propagation for Quantum Machine Learning"
     text: |
@@ -76,6 +184,21 @@ chapters:
       gradient-enabled classical pre-training of parametrized quantum
       circuits ahead of deployment on hardware.
     figures: []
+    subsections:
+      - title: "Pauli-Propagator"
+        text: |
+          Propagate the observable, minimize the resulting loss classically,
+          then deploy the trained circuit on hardware.
+        url: "https://github.com/SaverioMonaco/Pauli-Propagator"
+        link_label: "GitHub"
+        papers:
+          - url: "https://arxiv.org/abs/2512.16674"
+            label: "arXiv 2512.16674"
+          - url: "https://arxiv.org/abs/2610.32571"
+            label: "arXiv 2610.32571"
+        figures:
+          - path: "thesis/figures/ppplargescheme.svg"
+            caption: ""
 
   - title: "Summary, Future Work and Conclusion"
     text: |

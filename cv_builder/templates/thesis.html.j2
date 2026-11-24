@@ -22,6 +22,8 @@
     --card-bg: #ffffff;
     --border: #e3e3e5;
     --chip-bg: #f4f4f6;
+    --fig-light: block;
+    --fig-dark: none;
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -31,6 +33,8 @@
       --chip-bg: #22252b;
       --text: #e8e8e8;
       --secondary: #a6a6a6;
+      --fig-light: none;
+      --fig-dark: block;
     }
   }
   :root[data-theme="dark"] {
@@ -40,6 +44,8 @@
     --chip-bg: #22252b;
     --text: #e8e8e8;
     --secondary: #a6a6a6;
+    --fig-light: none;
+    --fig-dark: block;
   }
   :root[data-theme="light"] {
     --bg: #ffffff;
@@ -48,6 +54,8 @@
     --chip-bg: #f4f4f6;
     --text: {{ text_color }};
     --secondary: {{ secondary_color }};
+    --fig-light: block;
+    --fig-dark: none;
   }
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
@@ -183,7 +191,7 @@
     color: var(--accent);
     min-width: 1.6em;
   }
-  .chapter-body { min-width: 0; }
+  .chapter-body { min-width: 0; flex: 1 1 auto; }
   .chapter-title { font-weight: 700; margin-bottom: .2rem; }
   .chapter-text { color: var(--secondary); font-size: .92rem; white-space: pre-line; }
 
@@ -213,6 +221,81 @@
     font-size: .8rem;
     margin-top: .4rem;
   }
+
+  /* Sub-box inside a chapter card (e.g. a model with its own repo) */
+  .subsection {
+    margin-top: .75rem;
+    padding: .7rem .85rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--chip-bg);
+    transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+  }
+  .subsection-title { font-weight: 700; font-size: .95rem; margin-bottom: .2rem; }
+  .subsection-title-link { color: var(--text); text-decoration: none; }
+  .subsection.subsection-link {
+    position: relative;
+    cursor: pointer;
+    border-left: 3px solid var(--accent);
+  }
+  .subsection.subsection-link .subsection-title-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+  .subsection.subsection-link:hover, .subsection.subsection-link:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .12);
+    transform: translateY(-2px);
+  }
+  .subsection.subsection-link .subsection-title-link:focus-visible { outline: none; }
+  .subsection.subsection-link:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .subsection.subsection-link:hover .subsection-title-link { color: var(--accent); }
+  .link-badge {
+    display: inline-block;
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 0 .45rem;
+    margin-left: .4rem;
+    vertical-align: middle;
+    transition: background .15s ease, color .15s ease;
+  }
+  .subsection.subsection-link:hover .link-badge { background: var(--accent); color: var(--card-bg); }
+  /* Secondary link (e.g. the paper) sits above the whole-box link */
+  .link-badge.paper-link { position: relative; z-index: 1; text-decoration: none; }
+  .link-badge.paper-link:hover, .link-badge.paper-link:focus-visible { background: var(--accent); color: var(--card-bg); }
+  .subsection.subsection-link:hover .link-badge.paper-link:not(:hover) { background: transparent; color: var(--accent); }
+  /* Non-link note on a sub-box, e.g. "Private repository" */
+  .status-badge {
+    display: inline-block;
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: var(--secondary);
+    border: 1px dashed var(--secondary);
+    border-radius: 999px;
+    padding: 0 .45rem;
+    margin-left: .4rem;
+    vertical-align: middle;
+  }
+  .subsection-figure { margin: .6rem 0 0; }
+  .subsection-figure img {
+    display: block;
+    width: auto;        /* natural size; wide figures shrink to fit */
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+  /* Light/dark variants of a figure (tools/thesis_figures.py) */
+  .subsection-figure img.fig-light { display: var(--fig-light); }
+  .subsection-figure img.fig-dark { display: var(--fig-dark); }
 
   .page-footer {
     margin-top: 2rem;
@@ -249,7 +332,8 @@
     <h1>{{ thesis.title|e }}</h1>
     {% if thesis.subtitle %}<p class="subtitle">{{ thesis.subtitle|e }}</p>{% endif %}
     <div class="meta-row">
-      {% if thesis.university %}<span class="chip">{{ thesis.university|e }}</span>{% endif %}
+      {% if thesis.university and thesis.university_url %}<a class="chip" href="{{ thesis.university_url|e }}" target="_blank" rel="noopener">{{ thesis.university|e }} ↗</a>
+      {% elif thesis.university %}<span class="chip">{{ thesis.university|e }}</span>{% endif %}
       {% if thesis.disputation_date_display %}
       <span class="chip">Disputation: {{ thesis.disputation_date_display|e }}{% if thesis.disputation_date_tentative %} (tentative){% endif %}</span>
       {% endif %}
@@ -302,6 +386,26 @@
             {% endfor %}
           </div>
           {% endif %}
+          {% for sub in chapter.subsections or [] %}
+          {% set new_tab = sub.url and (sub.url.startswith('http') or sub.url.endswith('.pdf')) %}
+          <div class="subsection{{ ' subsection-link' if sub.url else '' }}">
+            <div class="subsection-title">
+              {% if sub.url %}
+              <a class="subsection-title-link" href="{{ sub.url|e }}"{% if new_tab %} target="_blank" rel="noopener"{% endif %}>{{ sub.title|e }}<span class="link-badge">{{ (sub.link_label or 'Link')|e }} {{ '↗' if new_tab else '→' }}</span></a>
+              {% else %}{{ sub.title|e }}{% endif %}
+              {% if sub.status %}<span class="status-badge">{{ sub.status|e }}</span>{% endif %}
+              {% for paper in sub.papers %}<a class="link-badge paper-link" href="{{ paper.url|e }}" target="_blank" rel="noopener">{{ paper.label|e }} ↗</a>{% endfor %}
+            </div>
+            {% if sub.text %}<div class="chapter-text">{{ sub.text|e }}</div>{% endif %}
+            {% for fig in sub.figures %}
+            <figure class="subsection-figure">
+              <img{% if fig.dark_path %} class="fig-light"{% endif %} src="{{ fig.path|e }}" alt="{{ fig.caption|e if fig.caption else sub.title|e }}">
+              {% if fig.dark_path %}<img class="fig-dark" src="{{ fig.dark_path|e }}" alt="{{ fig.caption|e if fig.caption else sub.title|e }}">{% endif %}
+              {% if fig.caption %}<figcaption class="figure-caption">{{ fig.caption|e }}</figcaption>{% endif %}
+            </figure>
+            {% endfor %}
+          </div>
+          {% endfor %}
         </div>
       </article>
       {% endfor %}

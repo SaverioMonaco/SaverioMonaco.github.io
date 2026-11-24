@@ -8,9 +8,11 @@
   organization: "RWTH Aachen University & DESY"
   location: "Hamburg, Germany"
   dates: "Mar. 2024 - Present"
+  url: "thesis.html"
+  link_label: "Thesis"
   highlights:
     - "Marie Skłodowska-Curie PhD Fellowship"
-    - "Thesis: Detector Simulation and Jet Clustering for HL-LHC with Quantum Computing"
+    - "Thesis: Development of Quantum Computing Models for Calorimeter Simulation in Particle Physics"
 
 - title: "M.Sc. in Computational Physics"
   organization: "University of Padua"

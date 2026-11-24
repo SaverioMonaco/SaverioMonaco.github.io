@@ -79,6 +79,9 @@ def _normalize_entries(data: list) -> list:
             "dates": item.get("dates", ""),
             "bullets": item.get("highlights", item.get("items", [])) or [],
             "pdf": item.get("pdf", ""),
+            # url: any link target (external site or internal page); falls back to pdf
+            "url": item.get("url") or item.get("pdf", ""),
+            "link_label": item.get("link_label") or ("PDF" if item.get("pdf") and not item.get("url") else "Link"),
             "tbd": bool(item.get("tbd", False)),
         }
         for item in (data or [])
@@ -216,10 +219,23 @@ def _normalize_upcoming(data: list) -> list:
     ]
 
 
+def _dark_variant(path: str) -> str:
+    """Return the path of <name>.dark.<ext> if that file exists, else ""."""
+    p = Path(path)
+    dark = p.with_name(f"{p.stem}.dark{p.suffix}")
+    return str(dark) if dark.is_file() else ""
+
+
 def _normalize_figures(data: list) -> list:
     """Normalize a thesis-page figures list (top-level or per-chapter)."""
     return [
-        {"path": f["path"], "caption": f.get("caption", "") or ""}
+        {
+            "path": f["path"],
+            "caption": f.get("caption", "") or "",
+            # <name>.dark.svg next to the figure (made by tools/thesis_figures.py)
+            # is shown instead in the dark theme
+            "dark_path": _dark_variant(f["path"]),
+        }
         for f in (data or [])
         if f.get("path")
     ]
@@ -554,6 +570,13 @@ class Generator:
         thesis["figures"] = _normalize_figures(thesis.get("figures"))
         for chapter in thesis.get("chapters") or []:
             chapter["figures"] = _normalize_figures(chapter.get("figures"))
+            for sub in chapter.get("subsections") or []:
+                # papers: list of {url, label}; a single `paper` (+ paper_label) also works
+                papers = list(sub.get("papers") or [])
+                if sub.get("paper"):
+                    papers.insert(0, {"url": sub["paper"], "label": sub.get("paper_label")})
+                sub["papers"] = [{"url": x["url"], "label": x.get("label") or "Paper"} for x in papers if x.get("url")]
+                sub["figures"] = _normalize_figures(sub.get("figures"))
 
         self._render(
             "thesis.html.j2", self.output_dir / "thesis.html",

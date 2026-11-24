@@ -3,10 +3,14 @@
 # location: Platform or format (e.g., "Facebook Page", "Company Magazine")
 # dates: Date range
 # highlights: What you wrote about
+# url: (optional) link the card opens, e.g. the article
+# link_label: (optional) badge text, default "Link"
 
 - title: "PennyLane Tutorial - Author"
   organization: "PennyLane (Xanadu)"
   location: "Online"
   dates: "May 2025"
+  url: "https://pennylane.ai/qml/demos/tutorial_annni"
+  link_label: "Tutorial"
   highlights:
     - "Authored the tutorial “Supervised and Unsupervised Quantum Machine Learning Models for the Phase Detection of the ANNNI Spin Model” (pennylane.ai/qml/demos/tutorial_annni)."

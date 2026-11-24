@@ -210,10 +210,37 @@
     transition: border-color .15s ease, box-shadow .15s ease;
   }
   .entry[tabindex] { cursor: pointer; }
-  .entry:hover, .entry:focus-visible {
+  .entry[tabindex]:hover, .entry[tabindex]:focus-visible {
     border-color: var(--accent);
     box-shadow: 0 2px 12px rgba(0, 0, 0, .07);
   }
+  /* Cards that open a PDF: accent stripe, whole card clickable, lift on hover */
+  .entry.entry-link {
+    position: relative;
+    cursor: pointer;
+    border-left: 3px solid var(--accent);
+    transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+  }
+  .entry.entry-link:hover, .entry.entry-link:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .12);
+    transform: translateY(-2px);
+  }
+  .entry.entry-link .entry-title-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+  .entry.entry-link .entry-title-link:focus-visible { outline: none; }
+  .entry.entry-link:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .entry.entry-link:hover .entry-title-link { color: var(--accent); }
+  .entry.entry-link:hover .entry-pdf-badge { background: var(--accent); color: var(--card-bg); }
+  /* Expandable cards that also carry a link: stripe + clickable title/badge
+     (clicking elsewhere on the card still expands it) */
+  .entry.entry-has-link { border-left: 3px solid var(--accent); }
+  .entry.entry-has-link .entry-title-link:hover .entry-pdf-badge,
+  .entry.entry-has-link .entry-title-link:focus-visible .entry-pdf-badge { background: var(--accent); color: var(--card-bg); }
   .entry:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
   .entry.entry-tbd {
     background: transparent;
@@ -247,6 +274,7 @@
     padding: 0 .45rem;
     margin-left: .4rem;
     vertical-align: middle;
+    transition: background .15s ease, color .15s ease;
   }
   .entry-org { display: block; color: var(--secondary); font-size: .92rem; }
   .entry-meta { display: flex; align-items: baseline; gap: .5rem; white-space: nowrap; flex: 0 0 auto; }
@@ -449,11 +477,12 @@
     <div class="section-body">
     {% if section.kind == 'entries' %}
       {% for entry in section.entries %}
-      <article class="entry{{ ' entry-tbd' if entry.tbd else '' }}"{% if entry.bullets %} tabindex="0" aria-expanded="false"{% endif %}>
+      {% set new_tab = entry.url and (entry.url.startswith('http') or entry.url.endswith('.pdf')) %}
+      <article class="entry{{ ' entry-tbd' if entry.tbd else '' }}{% if entry.url %}{{ ' entry-has-link' if entry.bullets else ' entry-link' }}{% endif %}"{% if entry.bullets %} tabindex="0" aria-expanded="false"{% endif %}>
         <div class="entry-head">
           <div class="entry-titles">
-            {% if entry.pdf %}
-            <a class="entry-title-link" href="{{ entry.pdf|e }}" target="_blank" rel="noopener">{{ entry.title|e }}<span class="entry-pdf-badge">PDF</span></a>
+            {% if entry.url %}
+            <a class="entry-title-link" href="{{ entry.url|e }}"{% if new_tab %} target="_blank" rel="noopener"{% endif %}>{{ entry.title|e }}<span class="entry-pdf-badge">{{ entry.link_label|e }} {{ '↗' if new_tab else '→' }}</span></a>
             {% else %}
             <span class="entry-title">{{ entry.title|e }}</span>
             {% endif %}

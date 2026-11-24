@@ -22,6 +22,8 @@
     --card-bg: #ffffff;
     --border: #e3e3e5;
     --chip-bg: #f4f4f6;
+    --fig-light: block;
+    --fig-dark: none;
   }
   @media (prefers-color-scheme: dark) {
     :root {
@@ -31,6 +33,8 @@
       --chip-bg: #22252b;
       --text: #e8e8e8;
       --secondary: #a6a6a6;
+      --fig-light: none;
+      --fig-dark: block;
     }
   }
   :root[data-theme="dark"] {
@@ -40,6 +44,8 @@
     --chip-bg: #22252b;
     --text: #e8e8e8;
     --secondary: #a6a6a6;
+    --fig-light: none;
+    --fig-dark: block;
   }
   :root[data-theme="light"] {
     --bg: #ffffff;
@@ -48,6 +54,8 @@
     --chip-bg: #f4f4f6;
     --text: #1A1A1A;
     --secondary: #000000;
+    --fig-light: block;
+    --fig-dark: none;
   }
   * { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; }
@@ -183,7 +191,7 @@
     color: var(--accent);
     min-width: 1.6em;
   }
-  .chapter-body { min-width: 0; }
+  .chapter-body { min-width: 0; flex: 1 1 auto; }
   .chapter-title { font-weight: 700; margin-bottom: .2rem; }
   .chapter-text { color: var(--secondary); font-size: .92rem; white-space: pre-line; }
 
@@ -213,6 +221,81 @@
     font-size: .8rem;
     margin-top: .4rem;
   }
+
+  /* Sub-box inside a chapter card (e.g. a model with its own repo) */
+  .subsection {
+    margin-top: .75rem;
+    padding: .7rem .85rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--chip-bg);
+    transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
+  }
+  .subsection-title { font-weight: 700; font-size: .95rem; margin-bottom: .2rem; }
+  .subsection-title-link { color: var(--text); text-decoration: none; }
+  .subsection.subsection-link {
+    position: relative;
+    cursor: pointer;
+    border-left: 3px solid var(--accent);
+  }
+  .subsection.subsection-link .subsection-title-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+  .subsection.subsection-link:hover, .subsection.subsection-link:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .12);
+    transform: translateY(-2px);
+  }
+  .subsection.subsection-link .subsection-title-link:focus-visible { outline: none; }
+  .subsection.subsection-link:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .subsection.subsection-link:hover .subsection-title-link { color: var(--accent); }
+  .link-badge {
+    display: inline-block;
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 0 .45rem;
+    margin-left: .4rem;
+    vertical-align: middle;
+    transition: background .15s ease, color .15s ease;
+  }
+  .subsection.subsection-link:hover .link-badge { background: var(--accent); color: var(--card-bg); }
+  /* Secondary link (e.g. the paper) sits above the whole-box link */
+  .link-badge.paper-link { position: relative; z-index: 1; text-decoration: none; }
+  .link-badge.paper-link:hover, .link-badge.paper-link:focus-visible { background: var(--accent); color: var(--card-bg); }
+  .subsection.subsection-link:hover .link-badge.paper-link:not(:hover) { background: transparent; color: var(--accent); }
+  /* Non-link note on a sub-box, e.g. "Private repository" */
+  .status-badge {
+    display: inline-block;
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: var(--secondary);
+    border: 1px dashed var(--secondary);
+    border-radius: 999px;
+    padding: 0 .45rem;
+    margin-left: .4rem;
+    vertical-align: middle;
+  }
+  .subsection-figure { margin: .6rem 0 0; }
+  .subsection-figure img {
+    display: block;
+    width: auto;        /* natural size; wide figures shrink to fit */
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+  /* Light/dark variants of a figure (tools/thesis_figures.py) */
+  .subsection-figure img.fig-light { display: var(--fig-light); }
+  .subsection-figure img.fig-dark { display: var(--fig-dark); }
 
   .page-footer {
     margin-top: 2rem;
@@ -246,9 +329,10 @@
 <div class="page">
 
   <header class="thesis-header">
-    <h1>Thesis title — TBD</h1>
+    <h1>Development of Quantum Computing Models for Calorimeter Simulation in Particle Physics</h1>
     <div class="meta-row">
-<span class="chip">RWTH Aachen University</span>      <span class="chip">Disputation: Mar 1, 2027 (tentative)</span>
+<a class="chip" href="https://www.rwth-aachen.de" target="_blank" rel="noopener">RWTH Aachen University ↗</a>
+      <span class="chip">Disputation: Mar 1, 2027 (tentative)</span>
     </div>
     <span class="draft-badge">Draft</span>
   </header>
@@ -285,7 +369,25 @@ and the cost of Monte Carlo simulation that motivates faster methods.
 <div class="chapter-text">Introduction to qubits and quantum gates, current hardware
 realizations, and classical simulation methods (statevector, density
 matrix, tensor networks) and their regimes of simulability.
-</div>        </div>
+</div>          <div class="subsection">
+            <div class="subsection-title">
+Introduction to Quantum Computing            </div>
+<div class="chapter-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua.
+</div>            <figure class="subsection-figure">
+              <img class="fig-light" src="thesis/figures/bloch.svg" alt="Introduction to Quantum Computing">
+<img class="fig-dark" src="thesis/figures/bloch.dark.svg" alt="Introduction to Quantum Computing">            </figure>
+          </div>
+          <div class="subsection">
+            <div class="subsection-title">
+Classical Simulation Methods            </div>
+<div class="chapter-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua.
+</div>            <figure class="subsection-figure">
+              <img class="fig-light" src="thesis/figures/simregions.svg" alt="Classical Simulation Methods">
+<img class="fig-dark" src="thesis/figures/simregions.dark.svg" alt="Classical Simulation Methods">            </figure>
+          </div>
+        </div>
       </article>
       <article class="chapter">
         <div class="chapter-number">04</div>
@@ -293,7 +395,25 @@ matrix, tensor networks) and their regimes of simulability.
           <div class="chapter-title">Quantum Machine Learning</div>
 <div class="chapter-text">Parametrized quantum circuits as machine learning models, including
 the parameter-shift rule for gradient estimation — to be expanded.
-</div>        </div>
+</div>          <div class="subsection">
+            <div class="subsection-title">
+Parametrized Quantum Circuits            </div>
+<div class="chapter-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua.
+</div>            <figure class="subsection-figure">
+              <img class="fig-light" src="thesis/figures/qml_model.svg" alt="Parametrized Quantum Circuits">
+<img class="fig-dark" src="thesis/figures/qml_model.dark.svg" alt="Parametrized Quantum Circuits">            </figure>
+          </div>
+          <div class="subsection">
+            <div class="subsection-title">
+Trainability and Barren Plateaus            </div>
+<div class="chapter-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+tempor incididunt ut labore et dolore magna aliqua.
+</div>            <figure class="subsection-figure">
+              <img class="fig-light" src="thesis/figures/bp_landscape.svg" alt="Trainability and Barren Plateaus">
+<img class="fig-dark" src="thesis/figures/bp_landscape.dark.svg" alt="Trainability and Barren Plateaus">            </figure>
+          </div>
+        </div>
       </article>
       <article class="chapter">
         <div class="chapter-number">05</div>
@@ -301,15 +421,80 @@ the parameter-shift rule for gradient estimation — to be expanded.
           <div class="chapter-title">The Quantum Angle Generator</div>
 <div class="chapter-text">Introduces the Quantum Angle Generator (QAG): model architecture,
 angle encoding schemes, and training — to be expanded.
-</div>        </div>
+</div>          <div class="subsection">
+            <div class="subsection-title">
+Quantum Angle Generator<span class="status-badge">Private repository</span><a class="link-badge paper-link" href="https://arxiv.org/abs/2307.05253" target="_blank" rel="noopener">arXiv ↗</a>            </div>
+<div class="chapter-text">Angle encoding of random inputs, a parametrized unitary, and one
+expectation value per qubit decoded into the energy of one cell.
+</div>            <figure class="subsection-figure">
+              <img class="fig-light" src="thesis/figures/qag_model.svg" alt="Quantum Angle Generator">
+<img class="fig-dark" src="thesis/figures/qag_model.dark.svg" alt="Quantum Angle Generator">            </figure>
+          </div>
+        </div>
       </article>
       <article class="chapter">
         <div class="chapter-number">06</div>
         <div class="chapter-body">
           <div class="chapter-title">Other Generative Models</div>
-<div class="chapter-text">Comparison of classical generative models, quantum GANs and quantum
-circuit Born machines against the Quantum Angle Generator.
-</div>        </div>
+<div class="chapter-text">Classical generative models for calorimeter simulation, the multi
+universal approximator (one independent qubit per pixel, no entanglement),
+and four quantum generative models for calorimeter showers developed with
+Jamal Slim: the coherent memory register, QFAN, the interferometric QPCE
+and the compiled IQP Born machine.
+</div>          <div class="subsection subsection-link">
+            <div class="subsection-title">
+              <a class="subsection-title-link" href="https://github.com/SaverioMonaco/Multi-Universal-Approximator" target="_blank" rel="noopener">Multi Universal Approximator<span class="link-badge">GitHub ↗</span></a>
+            </div>
+<div class="chapter-text">One independent single-qubit universal approximator per output (pixel),
+all sharing the same input noise, without any entangling gate.
+</div>            <figure class="subsection-figure">
+              <img class="fig-light" src="thesis/figures/mua.svg" alt="Multi Universal Approximator">
+<img class="fig-dark" src="thesis/figures/mua.dark.svg" alt="Multi Universal Approximator">            </figure>
+          </div>
+          <div class="subsection subsection-link">
+            <div class="subsection-title">
+              <a class="subsection-title-link" href="https://github.com/jamalslim/comb" target="_blank" rel="noopener">Coherent Memory Register<span class="link-badge">GitHub ↗</span></a>
+<a class="link-badge paper-link" href="https://arxiv.org/abs/2609.23050" target="_blank" rel="noopener">arXiv ↗</a>            </div>
+<div class="chapter-text">In each round a unitary entangles a work register with a memory register.
+The work register is measured to give one component of the sample, while the
+memory is never measured and carries the correlations between rounds.
+</div>            <figure class="subsection-figure">
+              <img class="fig-light" src="thesis/figures/comb.svg" alt="Coherent Memory Register">
+<img class="fig-dark" src="thesis/figures/comb.dark.svg" alt="Coherent Memory Register">            </figure>
+          </div>
+          <div class="subsection subsection-link">
+            <div class="subsection-title">
+              <a class="subsection-title-link" href="https://github.com/jamalslim/qfan_project" target="_blank" rel="noopener">Quantum Feature Amplification Network<span class="link-badge">GitHub ↗</span></a>
+<a class="link-badge paper-link" href="https://arxiv.org/abs/2605.16044" target="_blank" rel="noopener">arXiv ↗</a>            </div>
+<div class="chapter-text">An autoregressive model: every step runs the same circuit, with encoding
+angles computed from the pixels already generated, and a linear decoder turns
+the measured parities into the next block of pixels.
+</div>            <figure class="subsection-figure">
+              <img class="fig-light" src="thesis/figures/qfan.svg" alt="Quantum Feature Amplification Network">
+<img class="fig-dark" src="thesis/figures/qfan.dark.svg" alt="Quantum Feature Amplification Network">            </figure>
+          </div>
+          <div class="subsection subsection-link">
+            <div class="subsection-title">
+              <a class="subsection-title-link" href="https://github.com/jamalslim/qpce_code" target="_blank" rel="noopener">Interferometric Quantum Polynomial Chaos Expansion<span class="link-badge">GitHub ↗</span></a>
+<a class="link-badge paper-link" href="https://arxiv.org/abs/2608.05405" target="_blank" rel="noopener">arXiv ↗</a>            </div>
+<div class="chapter-text">Noise germs are re-uploaded at the start of every block of an interferometer,
+so the depth sets the order of the chaos expansion. One expectation value per
+qubit gives the energy of one calorimeter cell.
+</div>            <figure class="subsection-figure">
+              <img class="fig-light" src="thesis/figures/qpce.svg" alt="Interferometric Quantum Polynomial Chaos Expansion">
+<img class="fig-dark" src="thesis/figures/qpce.dark.svg" alt="Interferometric Quantum Polynomial Chaos Expansion">            </figure>
+          </div>
+          <div class="subsection subsection-link">
+            <div class="subsection-title">
+              <a class="subsection-title-link" href="https://github.com/jamalslim/ciqp-moiqp" target="_blank" rel="noopener">Compiled IQP Born Machine<span class="link-badge">GitHub ↗</span></a>
+<a class="link-badge paper-link" href="https://arxiv.org/abs/2605.27735" target="_blank" rel="noopener">arXiv ↗</a>            </div>
+<div class="chapter-text">An IQP Born machine for calorimeter images at 64 qubits. The mixture of IQP
+circuits is compiled into a single IQP circuit with a few ancilla qubits.
+</div>            <figure class="subsection-figure">
+              <img class="fig-light" src="thesis/figures/ciqp.svg" alt="Compiled IQP Born Machine">
+<img class="fig-dark" src="thesis/figures/ciqp.dark.svg" alt="Compiled IQP Born Machine">            </figure>
+          </div>
+        </div>
       </article>
       <article class="chapter">
         <div class="chapter-number">07</div>
@@ -318,7 +503,17 @@ circuit Born machines against the Quantum Angle Generator.
 <div class="chapter-text">Symbolic Pauli propagation in the Heisenberg picture, used for
 gradient-enabled classical pre-training of parametrized quantum
 circuits ahead of deployment on hardware.
-</div>        </div>
+</div>          <div class="subsection subsection-link">
+            <div class="subsection-title">
+              <a class="subsection-title-link" href="https://github.com/SaverioMonaco/Pauli-Propagator" target="_blank" rel="noopener">Pauli-Propagator<span class="link-badge">GitHub ↗</span></a>
+<a class="link-badge paper-link" href="https://arxiv.org/abs/2512.16674" target="_blank" rel="noopener">arXiv 2512.16674 ↗</a><a class="link-badge paper-link" href="https://arxiv.org/abs/2610.32571" target="_blank" rel="noopener">arXiv 2610.32571 ↗</a>            </div>
+<div class="chapter-text">Propagate the observable, minimize the resulting loss classically,
+then deploy the trained circuit on hardware.
+</div>            <figure class="subsection-figure">
+              <img class="fig-light" src="thesis/figures/ppplargescheme.svg" alt="Pauli-Propagator">
+<img class="fig-dark" src="thesis/figures/ppplargescheme.dark.svg" alt="Pauli-Propagator">            </figure>
+          </div>
+        </div>
       </article>
       <article class="chapter">
         <div class="chapter-number">08</div>
