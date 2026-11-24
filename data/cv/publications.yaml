@@ -3,6 +3,7 @@
 # author: "and"-separated author list, e.g. "S. Monaco and O. Kiss and M. Grossi"
 # title, journal, year, volume, issue, pages, publisher, doi, url:
 #   Standard BibTeX fields — leave "" to omit a field.
+# short_journal: (optional) abbreviated journal name, used in the PDF CV only
 
 - key: "pp-pretraining"
   type: "article"
@@ -126,6 +127,7 @@
   author: "Gianelle, A. and Lucchesi, D. and Monaco, S. and Nicotra, D. and Sestini, L. and Zuliani, D."
   title: "Quantum Machine Learning for data analysis at LHCb"
   journal: "Il Nuovo Cimento C: colloquia and communications in physics"
+  short_journal: "Nuovo Cim. C"
   year: "2024"
   volume: "47"
   issue: "3"

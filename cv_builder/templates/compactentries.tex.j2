@@ -4,14 +4,16 @@
 \cvsection{ {{- section_title -}} }
 {% endif %}
 
-\begin{cvcompactentries}
+% Same look as the other entries: title + place on the first line, event +
+% date on the second; place and date stay at the top when the title wraps.
+\vspace{1.5mm}
 
 {% for entry in entries %}
 %---------------------------------------------------------
-{% set entry_title = ('\href{' ~ entry.pdf ~ '}{' ~ (entry.title | le) ~ '}') if entry.pdf else (entry.title | le) %}
-  \cvcompactentry
-    { {{- entry.year | le -}} }
-    { {{- entry_title -}} }
-    { {{- entry.venue | le -}} }
+{% set entry_title = ('\\href{' ~ entry.pdf ~ '}{' ~ (entry.title | le) ~ '}') if entry.pdf else (entry.title | le) %}
+  \acvstackentry
+    {\entrytitlestyle{ {{- entry_title -}} }}
+    {\entrypositionstyle{ {{- entry.organization | le -}} }}
+    {\entrylocationstyle{ {{- entry.location | le -}} }}
+    {\entrydatestyle{ {{- entry.dates | le -}} }}%
 {% endfor %}
-\end{cvcompactentries}

@@ -16,6 +16,56 @@
 \definecolor{graytext}{HTML}{ {{- config.secondary_text_color -}} }
 {% endif %}
 
+{% raw %}%--- Typography: one family (Source Sans Pro) and a calmer hierarchy ---
+% awesome-cv mixes Roboto (header) with Source Sans Pro (body) and uses
+% small caps, slanted text and light weights for different lines; these
+% overrides keep a single family, regular weights and fewer styles.
+\renewcommand*{\headerfont}{\sffamily}
+\renewcommand*{\headerfontlight}{\sffamily\fontseries{l}\selectfont}
+\renewcommand*{\bodyfontlight}{\sffamily}% regular instead of light: light is too faint at 9pt
+\renewcommand*{\headerfirstnamestyle}[1]{{\fontsize{30pt}{1em}\headerfontlight\color{text} #1}}
+\renewcommand*{\headerlastnamestyle}[1]{{\fontsize{30pt}{1em}\headerfont\bfseries\color{text} #1}}
+\renewcommand*{\headerpositionstyle}[1]{{\fontsize{9.5pt}{1em}\bodyfont\color{awesome} #1}}
+\renewcommand*{\headeraddressstyle}[1]{{\fontsize{8.5pt}{1em}\headerfont\color{lighttext} #1}}
+\renewcommand*{\headersocialstyle}[1]{{\fontsize{8.5pt}{1em}\headerfont\color{text} #1}}
+\renewcommand*{\footerstyle}[1]{{\fontsize{8pt}{1em}\footerfont\color{lighttext} #1}}
+\renewcommand*{\sectionstyleface}[1]{{\fontsize{15pt}{1em}\bodyfont\bfseries #1}}
+\renewcommand*{\subsectionstyle}[1]{{\fontsize{11pt}{1em}\bodyfont\bfseries\textcolor{text}{#1}}}
+\renewcommand*{\entrytitlestyle}[1]{{\fontsize{10pt}{1em}\bodyfont\bfseries\color{text} #1}}
+\renewcommand*{\entrypositionstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\itshape\color{darktext} #1}}
+\renewcommand*{\entrydatestyle}[1]{{\fontsize{8.5pt}{1em}\bodyfont\color{darktext} #1}}
+\renewcommand*{\entrylocationstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\color{awesome} #1}}
+\renewcommand*{\descriptionstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\upshape\color{text} #1}}
+\renewcommand*{\subentrypositionstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\itshape\color{darktext} #1}}
+\renewcommand*{\subentrydatestyle}[1]{{\fontsize{8pt}{1em}\bodyfont\color{darktext} #1}}
+\renewcommand*{\subentrylocationstyle}[1]{{\fontsize{8pt}{1em}\bodyfont\color{awesome} #1}}
+\renewcommand*{\honordatestyle}[1]{{\fontsize{9pt}{1em}\bodyfont\color{darktext} #1}}
+\renewcommand*{\honorlocationstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\color{awesome} #1}}
+\renewcommand*{\skilltypestyle}[1]{{\fontsize{9.5pt}{1em}\bodyfont\bfseries\color{text} #1}}
+\renewcommand*{\skillsetstyle}[1]{{\fontsize{9pt}{1em}\bodyfont\color{text} #1}}
+% Never leave a section title alone at the bottom of a page
+\usepackage{needspace}
+\renewcommand{\cvsection}[2][\acvSectionTopSkip]{%
+  \Needspace{8\baselineskip}%
+  \vspace{#1}
+  \sectionstyle{#2}
+  \phantomsection
+  {\color{awesome}\vhrulefill{0.9pt}}
+}
+% Talks/posters: year in the accent color, bold title, venue in small grey
+% italic (like the degree/role line of other entries); wrapped lines are
+% indented under the title.
+\renewcommand*{\cvcompactentry}[3]{%
+  \par\small
+  \hangindent=\acvCompactEntryIndent\hangafter=1
+  \makebox[\acvCompactEntryIndent][l]{\bfseries\color{awesome}#1}{\bfseries\color{text}#2}%
+  \par
+  \hangindent=\acvCompactEntryIndent\hangafter=0
+  {\fontsize{8.5pt}{1.2em}\selectfont\itshape\color{darktext}#3}%
+  \par\vspace{0.35\baselineskip}%
+}
+{% endraw %}
+
 
 {% raw %}%--- Bibliography (Publications section) ---
 \usepackage[
@@ -32,47 +82,60 @@
 ]{biblatex}
 \addbibresource{cv/bib.bib}
 
-\DeclareFieldFormat[article,inproceedings,misc,report,incollection]{title}{#1\par}
+\DeclareFieldFormat[article,inproceedings,misc,report,incollection]{title}{#1}
+\DeclareFieldFormat{journaltitle}{#1}
+\DeclareFieldFormat{shortjournal}{#1}
+
+% Two-line entry with the right column pinned to the top: place/journal on
+% the first line of the title, date/year right below it, even when the title
+% wraps (\cventry centers the right column vertically instead).
+%   #1 title             #3 place / journal (accent)
+%   #2 subtitle          #4 date / year
+\newcommand*{\acvstackentry}[4]{%
+  \noindent% no \par here: inside the bibliography list it would add an empty line after \item
+  \parbox[t]{\dimexpr\textwidth-4.7cm\relax}{%
+    \fontsize{9pt}{12pt}\selectfont\raggedright #1\par #2}%
+  \hfill
+  \parbox[t]{4.5cm}{%
+    \fontsize{9pt}{12pt}\selectfont\raggedleft #3\par #4}%
+  \par\vspace{2.2mm}%
+}
+
+% The bibliography is a plain list: no hanging indent or extra item spacing
+% (spacing comes from \acvstackentry, like talks/posters)
+\defbibenvironment{bibliography}
+  {\list{}{\setlength{\leftmargin}{0pt}\setlength{\itemindent}{0pt}%
+           \setlength{\labelwidth}{0pt}\setlength{\labelsep}{0pt}%
+           \setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}\setlength{\topsep}{0pt}}}
+  {\endlist}
+  {\item}
+\setlength{\bibitemsep}{0pt}
+\renewbibmacro*{finentry}{}% no end-of-entry period/paragraph
+
+% Publications: title (bold) / authors (grey), journal + volume / year on the right
+\newcommand*{\acvpubentry}[4]{%
+  \acvstackentry
+    {\entrytitlestyle{#1}}
+    {{\fontsize{9pt}{1.2em}\bodyfont\color{darktext}#2}}
+    {\entrylocationstyle{#3}}
+    {\entrydatestyle{#4}}%
+}
 
 \DeclareBibliographyDriver{article}{%
-  \small
-  \textbf{\printfield{year}}\hspace{.2cm}%
-  \printfield{title}%
-  \newblock%
-  \hspace{.51cm}\printnames[acvbibauthor]{author}%
-  \par%
-  \newblock%
-  \hspace{.45cm}{%
-    \small\color{graytext}%
-    \usebibmacro{journal+issuetitle}%
-    \setunit{\space}%
-    \printfield{pages}%
-    \newunit%
-    \printlist{publisher}%
-    \setunit*{\addcomma\space}%
-    \newunit%
-  }%
-  \par\vspace{0.12\baselineskip}%
+  \acvpubentry
+    {\printfield{title}}
+    {\printnames[acvbibauthor]{author}}
+    {\iffieldundef{shortjournal}{\printfield{journaltitle}}{\printfield{shortjournal}}%
+     \iffieldundef{volume}{}{\addspace\printfield{volume}}}
+    {\printfield{year}}%
 }
 
 \DeclareBibliographyDriver{inproceedings}{%
-  \small
-  \textbf{\printfield{year}}\hspace{.2cm}%
-  \printfield{title}%
-  \newblock%
-  \hspace{.51cm}\printnames[acvbibauthor]{author}%
-  \par%
-  \newblock%
-  \hspace{.45cm}{%
-    \small\color{graytext}%
-    \printfield{booktitle}%
-    \setunit{\addcomma\space}%
-    \printfield{year}%
-    \setunit{\addcomma\space}%
-    \printlist{location}%
-    \newunit%
-  }%
-  \par\vspace{0.12\baselineskip}%
+  \acvpubentry
+    {\printfield{title}}
+    {\printnames[acvbibauthor]{author}}
+    {\printfield{booktitle}}
+    {\printfield{year}}%
 }
 
 % Bold your own name in author lists (driven by personal.yaml)

@@ -5,6 +5,9 @@
 {% if pub.journal %}
     journal = { {{- pub.journal -}} },
 {% endif %}
+{% if pub.short_journal %}
+    shortjournal = { {{- pub.short_journal -}} },
+{% endif %}
 {% if pub.year %}
     year    = { {{- pub.year -}} },
 {% endif %}

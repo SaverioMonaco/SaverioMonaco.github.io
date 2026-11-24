@@ -7,7 +7,6 @@
     - "Qiskit"
     - "Quimb"
     - "TeNPy"
-    - "Yao.jl"
 
 - category: "Programming Languages"
   skills:
@@ -37,7 +36,6 @@
     - "NumPy"
     - "SciPy"
     - "Matplotlib"
-    - "BeautifulSoup"
 
 - category: "Tools"
   skills:

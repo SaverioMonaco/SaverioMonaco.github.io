@@ -7,6 +7,9 @@ font_size: 11pt
 #   Presets: awesome-emerald, awesome-skyblue, awesome-red, awesome-pink,
 #            awesome-orange, awesome-nephritis, awesome-concrete, awesome-darknight
 highlight_color: "0395DE"
+# Accent for the PDF CV/resume only (website keeps highlight_color). A deeper
+# blue reads better on paper; leave "" to use highlight_color.
+pdf_highlight_color: "1F4E8A"
 
 # Whether to color section titles with the highlight color
 section_color_highlight: true

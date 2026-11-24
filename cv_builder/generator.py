@@ -115,6 +115,10 @@ def _normalize_compact_entries(data: list) -> list:
             "year": years[-1] if years else dates,
             "title": item.get("title", ""),
             "venue": venue,
+            # separate fields for the entry layout (place/date on the right)
+            "organization": item.get("organization", ""),
+            "location": item.get("location", ""),
+            "dates": dates,
             "pdf": item.get("pdf", ""),
         })
     return entries
@@ -502,7 +506,8 @@ class Generator:
     def generate_main_files(self):
         personal = self._load("personal.yaml")
         config = self._load("config.yaml")
-        highlight_color_hex = _resolve_color(config["highlight_color"])[1:]
+        # The PDF can use its own (usually darker) accent: bright screen blues look loud in print
+        highlight_color_hex = _resolve_color(config.get("pdf_highlight_color") or config["highlight_color"])[1:]
 
         hide_from_pdf = set(config["cv"].get("hide_from_pdf") or [])
         pdf_sections = [s for s in config["cv"]["sections"] if s not in hide_from_pdf]
