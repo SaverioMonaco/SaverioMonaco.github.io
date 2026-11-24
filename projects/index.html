@@ -139,61 +139,53 @@
     color: var(--accent);
   }
 
-  /* Project cards (same look and behaviour as the CV's entry cards) */
+  /* Project cards: the whole card opens the repository (same look as the CV's link cards) */
   .entry {
+    position: relative;
     background: var(--card-bg);
     border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
     border-radius: 10px;
     padding: .85rem 1rem;
     margin-bottom: .6rem;
     cursor: pointer;
-    transition: border-color .15s ease, box-shadow .15s ease;
+    transition: border-color .15s ease, box-shadow .15s ease, transform .15s ease;
   }
-  .entry:hover, .entry:focus-visible {
+  .entry:hover, .entry:focus-within {
     border-color: var(--accent);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, .07);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .12);
+    transform: translateY(-2px);
   }
-  .entry:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-  .entry-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: .75rem;
-  }
-  .entry-titles { min-width: 0; flex: 1 1 auto; }
-  .entry-title { font-weight: 700; }
+  .entry:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .entry-titles { min-width: 0; }
+  .entry-title-link { font-weight: 700; text-decoration: none; color: var(--text); }
+  .entry-title-link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+  .entry-title-link:focus-visible { outline: none; }
+  .entry:hover .entry-title-link { color: var(--accent); }
   .entry-org { display: block; color: var(--secondary); font-size: .92rem; }
-  .entry-meta { display: flex; align-items: baseline; gap: .5rem; white-space: nowrap; flex: 0 0 auto; }
-  .entry-dates { color: var(--secondary); font-size: .85rem; }
-  .entry-toggle {
-    display: inline-block;
-    color: var(--accent);
-    font-size: .8rem;
-    transition: transform .2s ease;
-  }
-  .entry-details {
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transition: max-height .25s ease, opacity .2s ease, margin-top .25s ease;
-  }
+  .entry-details { margin-top: .5rem; }
   .entry-details p { margin: 0 0 .5rem; font-size: .92rem; }
-  .entry.expanded .entry-details {
-    max-height: 30em;
-    opacity: 1;
-    margin-top: .55rem;
+  .link-badge {
+    display: inline-block;
+    font-size: .68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 0 .45rem;
+    margin-left: .4rem;
+    vertical-align: middle;
+    text-decoration: none;
+    transition: background .15s ease, color .15s ease;
   }
-  .entry.expanded .entry-toggle { transform: rotate(180deg); }
-  @media (hover: hover) and (pointer: fine) {
-    .entry:hover .entry-details {
-      max-height: 30em;
-      opacity: 1;
-      margin-top: .55rem;
-    }
-    .entry:hover .entry-toggle { transform: rotate(180deg); }
-  }
+  .entry:hover .entry-title-link .link-badge { background: var(--accent); color: var(--card-bg); }
+  /* Extra links sit above the whole-card link */
+  .link-badge.extra-link { position: relative; z-index: 1; }
+  .link-badge.extra-link:hover, .link-badge.extra-link:focus-visible { background: var(--accent); color: var(--card-bg); }
 
-  .tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-bottom: .6rem; }
+  .tags { display: flex; flex-wrap: wrap; gap: .35rem; }
   .tag {
     font-size: .78rem;
     padding: .12rem .55rem;
@@ -202,20 +194,9 @@
     border: 1px solid var(--border);
     color: var(--secondary);
   }
-  .pub-links { display: flex; flex-wrap: wrap; gap: .5rem; }
-  .pub-links a {
-    font-size: .78rem;
-    padding: .12rem .55rem;
-    border-radius: 999px;
-    border: 1px solid var(--border);
-    text-decoration: none;
-    transition: border-color .15s ease, color .15s ease;
-  }
-  .pub-links a:hover, .pub-links a:focus-visible { border-color: var(--accent); color: var(--accent); }
 
   @media print {
-    .entry-details { max-height: none !important; opacity: 1 !important; margin-top: .55rem !important; }
-    .entry-toggle, .theme-toggle, .top-nav { display: none; }
+    .theme-toggle, .top-nav { display: none; }
     .entry { break-inside: avoid; }
   }
 </style>
@@ -234,112 +215,78 @@
 
   <section class="cv-section">
     <h2 class="section-title">Quantum computing</h2>
-    <article class="entry" tabindex="0" aria-expanded="false">
-      <div class="entry-head">
-        <div class="entry-titles">
-          <span class="entry-title">Pauli-Propagator</span>
-          <span class="entry-org">Approximate symbolic Pauli propagation</span>
-        </div>
-        <div class="entry-meta"><span class="entry-toggle" aria-hidden="true">▾</span></div>
+    <article class="entry">
+      <div class="entry-titles">
+        <a class="entry-title-link" href="https://github.com/SaverioMonaco/Pauli-Propagator" target="_blank" rel="noopener">Pauli-Propagator<span class="link-badge">GitHub ↗</span></a><a class="link-badge extra-link" href="https://pauli-propagator.readthedocs.io/en/latest/" target="_blank" rel="noopener">Docs ↗</a>
+        <span class="entry-org">Approximate symbolic Pauli propagation</span>
       </div>
       <div class="entry-details">
         <p>A PennyLane-based toolkit for approximate symbolic Pauli propagation and evaluation of quantum circuit observables.</p>
         <div class="tags"><span class="tag">Python</span><span class="tag">PennyLane</span><span class="tag">Quantum simulation</span></div>
-        <div class="pub-links">
-          <a href="https://github.com/SaverioMonaco/pauli-propagator" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://pauli-propagator.readthedocs.io/en/latest/" target="_blank" rel="noopener">Docs</a>
-        </div>
       </div>
     </article>
-    <article class="entry" tabindex="0" aria-expanded="false">
-      <div class="entry-head">
-        <div class="entry-titles">
-          <span class="entry-title">Quantum Phase Detection · ANNNI</span>
-          <span class="entry-org">CERN Quantum Technology Initiative</span>
-        </div>
-        <div class="entry-meta"><span class="entry-toggle" aria-hidden="true">▾</span></div>
+    <article class="entry">
+      <div class="entry-titles">
+        <a class="entry-title-link" href="https://github.com/CERN-QTI/Quantum-Phase-Detection-ANNNI" target="_blank" rel="noopener">Quantum Phase Detection · ANNNI<span class="link-badge">GitHub ↗</span></a>
+        <span class="entry-org">CERN Quantum Technology Initiative</span>
       </div>
       <div class="entry-details">
         <p>Quantum convolutional neural networks and quantum autoencoders to detect the phases of the ANNNI model, built on PennyLane.</p>
         <div class="tags"><span class="tag">Python</span><span class="tag">PennyLane</span><span class="tag">QML</span></div>
-        <div class="pub-links">
-          <a href="https://github.com/CERN-QTI/Quantum-Phase-Detection-ANNNI" target="_blank" rel="noopener">GitHub</a>
-        </div>
       </div>
     </article>
-    <article class="entry" tabindex="0" aria-expanded="false">
-      <div class="entry-head">
-        <div class="entry-titles">
-          <span class="entry-title">MPS Born Machines</span>
-          <span class="entry-org">Tensor-network generative modelling</span>
-        </div>
-        <div class="entry-meta"><span class="entry-toggle" aria-hidden="true">▾</span></div>
+    <article class="entry">
+      <div class="entry-titles">
+        <a class="entry-title-link" href="https://github.com/eigen-carmona/mps_born_machines" target="_blank" rel="noopener">MPS Born Machines<span class="link-badge">GitHub ↗</span></a>
+        <span class="entry-org">Tensor-network generative modelling</span>
       </div>
       <div class="entry-details">
         <p>A quantum-inspired generative model using matrix product states for unsupervised learning.</p>
         <div class="tags"><span class="tag">Python</span><span class="tag">Tensor networks</span><span class="tag">Generative models</span></div>
-        <div class="pub-links">
-          <a href="https://github.com/eigen-carmona/mps_born_machines" target="_blank" rel="noopener">GitHub</a>
-        </div>
       </div>
     </article>
   </section>
 
   <section class="cv-section">
     <h2 class="section-title">LaTeX templates</h2>
-    <article class="entry" tabindex="0" aria-expanded="false">
-      <div class="entry-head">
-        <div class="entry-titles">
-          <span class="entry-title">DESY-baposter</span>
-          <span class="entry-org">LaTeX poster class</span>
-        </div>
-        <div class="entry-meta"><span class="entry-toggle" aria-hidden="true">▾</span></div>
+    <article class="entry">
+      <div class="entry-titles">
+        <a class="entry-title-link" href="https://github.com/SaverioMonaco/DESY-baposter" target="_blank" rel="noopener">DESY-baposter<span class="link-badge">GitHub ↗</span></a>
+        <span class="entry-org">LaTeX poster class</span>
       </div>
       <div class="entry-details">
         <p>A DESY-themed fork of baposter, a LaTeX poster class.</p>
         <div class="tags"><span class="tag">LaTeX</span></div>
-        <div class="pub-links">
-          <a href="https://github.com/SaverioMonaco/DESY-baposter" target="_blank" rel="noopener">GitHub</a>
-        </div>
       </div>
     </article>
-    <article class="entry" tabindex="0" aria-expanded="false">
-      <div class="entry-head">
-        <div class="entry-titles">
-          <span class="entry-title">SINTEF Beamer Template</span>
-          <span class="entry-org">LaTeX presentation theme</span>
-        </div>
-        <div class="entry-meta"><span class="entry-toggle" aria-hidden="true">▾</span></div>
+    <article class="entry">
+      <div class="entry-titles">
+        <a class="entry-title-link" href="https://github.com/SaverioMonaco/SINTEF" target="_blank" rel="noopener">SINTEF Beamer Template<span class="link-badge">GitHub ↗</span></a>
+        <span class="entry-org">LaTeX presentation theme</span>
       </div>
       <div class="entry-details">
         <p>A 16:9 LaTeX Beamer theme with color palettes, custom logos and footline, and uncounted backup slides.</p>
         <div class="tags"><span class="tag">LaTeX</span><span class="tag">Beamer</span></div>
-        <div class="pub-links">
-          <a href="https://github.com/SaverioMonaco/SINTEF" target="_blank" rel="noopener">GitHub</a>
-        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="cv-section">
+    <h2 class="section-title">Other</h2>
+    <article class="entry">
+      <div class="entry-titles">
+        <a class="entry-title-link" href="https://github.com/SaverioMonaco/Ultimate-Crunch" target="_blank" rel="noopener">Ultimate-Crunch<span class="link-badge">GitHub ↗</span></a><a class="link-badge extra-link" href="https://ankiweb.net/shared/info/2103052727" target="_blank" rel="noopener">AnkiWeb ↗</a>
+        <span class="entry-org">Anki deck for Japanese verb conjugation</span>
+      </div>
+      <div class="entry-details">
+        <p>An Anki deck to drill Japanese verb conjugation: about 600 JLPT N5–N3 verbs and 30 forms, organized by JLPT level. Example sentences from Tatoeba.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Anki</span><span class="tag">Japanese</span></div>
       </div>
     </article>
   </section>
 
 </div>
 <script>
-  document.querySelectorAll('.entry-details a').forEach(function (link) {
-    link.addEventListener('click', function (e) { e.stopPropagation(); });
-  });
-  document.querySelectorAll('.entry[tabindex]').forEach(function (entry) {
-    function toggle() {
-      var open = entry.classList.toggle('expanded');
-      entry.setAttribute('aria-expanded', String(open));
-    }
-    entry.addEventListener('click', toggle);
-    entry.addEventListener('keydown', function (e) {
-      if (e.target !== entry) return;
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        toggle();
-      }
-    });
-  });
   (function () {
     var root = document.documentElement;
     var btn = document.getElementById('theme-toggle');
