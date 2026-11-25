@@ -23,7 +23,7 @@
 {% if entry.bullets %}
       \begin{cvitems}
 {% for item in entry.bullets %}
-        \item { {{- item | le -}} }
+        \item { {{- item | leb -}} }
 {% endfor %}
       \end{cvitems}
 {% endif %}

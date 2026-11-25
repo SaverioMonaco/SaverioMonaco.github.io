@@ -55,18 +55,32 @@ Clean generated files:
 make clean
 ```
 
-Under the hood, `make` calls the `cv-builder` CLI directly:
+Under the hood, `make` calls the builder directly (`python3 -m cv_builder`, so it works without `make install` too):
 
 ```
-cv-builder build --data-dir data --output-dir build
+python3 -m cv_builder build --data-dir data --output-dir build
 ```
 
 which regenerates everything under `build/`, then the Makefile copies the relevant files to the repo root.
 
-## Tailoring a CV and motivational letter for an application
+## Tailoring a CV and motivation letter for an application
+
+Each application lives in its own folder, `applications/<name>/`, and only stores what differs from the main CV:
 
 ```
-make export NAME=acme
+make new NAME=lanl     # creates applications/lanl/application.yaml and letter.tex
+make app NAME=lanl     # builds applications/lanl/cv.pdf and letter.pdf
 ```
 
-This regenerates the sources and copies the current `cv.tex` (with its `cv/` sections and `bib.bib`), a motivational letter template `coverletter.tex`, `awesome-cv.cls` and a small Makefile into `applications/acme/`. Edit the `.tex` files there for that company, then run `make` inside the folder to get `cv.pdf` and `coverletter.pdf`. Exports never overwrite an existing folder, and `applications/` is git-ignored so letters stay private. The letter template itself lives in `cv_builder/templates/coverletter.tex.j2`.
+* `application.yaml`, `cv:` block: tweaks to the PDF CV for this application only (the website is never affected):
+  * `hide_sections`: e.g. `[writing, extracurricular]`; or `sections` for a full custom order.
+  * `bold`: phrases bolded wherever they appear in skills and entry bullets (case-insensitive, whole words).
+  * `hide_skills`: single skills or whole skill categories.
+  * `hide_entries`: per section, a substring of an entry's title/organization (publications: bib key or title).
+  * `position`: a different headline under your name.
+
+  Any rule that matches nothing prints a warning, so typos don't go unnoticed.
+* `application.yaml`, `letter:` block: title, opening, closing, logo (an image in the folder), optional recipient and date.
+* `letter.tex`: the body of the letter, in LaTeX. Use `\begin{point}{Lead-in} ... \end{point}` for paragraphs with the accent side bar. `\cite{key}` works for your own papers (keys from `data/cv/publications.yaml`) and for anything in an optional `references.bib` in the folder; a References list is added only when the letter cites something.
+
+The CV data stays in `data/`, so updating the main CV updates every application the next time you run `make app`. `applications/` is git-ignored so letters stay private. Generated LaTeX goes to `applications/<name>/build/`.

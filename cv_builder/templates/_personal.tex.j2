@@ -1,0 +1,35 @@
+%--- Personal Information ---
+{% if personal.photo %}
+\photo[{{ personal.photo.shape }},{{ personal.photo.edge }},{{ personal.photo.align }}]{ {{- personal.photo.path -}} }
+{% endif %}
+\name{ {{- personal.name.first | le -}} }{ {{- personal.name.last | le -}} }
+\position{ {{- personal.position | map('le') | join('{\\enskip\\cdotp\\enskip}') -}} }
+{% if personal.address %}
+\address{ {{- personal.address | le -}} }
+{% endif %}
+{% if personal.contact.mobile %}
+\mobile{ {{- personal.contact.mobile | le -}} }
+{% endif %}
+{% if personal.contact.email %}
+\email{ {{- personal.contact.email | le -}} }
+{% endif %}
+{% if personal.contact.website %}
+\homepage{ {{- personal.contact.website | le -}} }
+{% endif %}
+{% if personal.social.github %}
+\github{ {{- personal.social.github | le -}} }
+{% endif %}
+{% if personal.social.linkedin %}
+\linkedin{ {{- personal.social.linkedin | le -}} }
+{% endif %}
+{% if personal.social.twitter %}
+\twitter{ {{- personal.social.twitter | le -}} }
+{% endif %}
+{% if personal.social.gitlab %}
+\gitlab{ {{- personal.social.gitlab | le -}} }
+{% endif %}
+{% if personal.quote %}
+\quote{``{{ personal.quote | le }}''}
+{% endif %}
+
+

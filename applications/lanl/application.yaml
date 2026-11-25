@@ -1,0 +1,59 @@
+# Tailoring for one application. Run `make app NAME=<this folder>` from the
+# repo root to (re)build cv.pdf and letter.pdf here. Every key is optional;
+# the website (index.html) is never affected.
+
+cv:
+  # Headline under your name (replaces personal.yaml `position`)
+  # position:
+  #   - "Quantum Computing Researcher"
+
+  # Sections to drop from this CV (names as in data/cv/, without .yaml)
+  hide_sections:
+    - writing
+    - extracurricular
+
+  # Or give the full order explicitly (overrides config.yaml's order)
+  # sections: [education, experience, skills, publications, talks, posters, certificates]
+
+  # Phrases to bold wherever they appear in skills and entry bullets
+  # (case-insensitive, whole words)
+  bold:
+    - PennyLane
+    - Qiskit
+    - Quimb
+    - Julia
+    - quantum machine learning
+
+  # Skills, or whole skill categories, to drop
+  hide_skills:
+    - VHDL
+    - Agda
+    - JavaScript
+  #  - VHDL
+  #  - Other Libraries
+
+  # Entries to drop, per section: any substring of the entry's title,
+  # organization, etc. For publications: the bib key or part of the title.
+  hide_entries:
+    publications: ["monacostudy"]
+  #  experience: ["ParityQC"]
+  #  talks: ["Some workshop"]
+  #  publications: ["qpce"]
+
+letter:
+  title: "Application for 2025 Los Alamos Quantum Computing Summer School"
+  opening: "Dear LANL Recruitment Team,"
+  closing: "Sincerely,"
+  # Logo shown top-right: put the image in this folder and give its file name
+  logo: "LANL_Logo.png"
+  logo_width: 0.28            # fraction of the line width
+  # Recipient block and date; leave empty to hide them
+  recipient:
+    name: ""
+    address: ""               # use a YAML block (|) for several lines
+  date: ""                    # e.g. "today" or "November 25, 2026"
+  footer: "Motivation Letter"
+  enclosure: ""               # e.g. "Attached: Curriculum Vitae"
+
+# The letter's text is in letter.tex. Cite your own papers by their key in
+# data/cv/publications.yaml; other references go in references.bib here.

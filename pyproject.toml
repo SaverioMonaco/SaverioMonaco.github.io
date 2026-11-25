@@ -21,4 +21,4 @@ where = ["."]
 include = ["cv_builder*"]
 
 [tool.setuptools.package-data]
-cv_builder = ["templates/**/*.j2"]
+cv_builder = ["templates/**/*.j2", "templates/application/*"]

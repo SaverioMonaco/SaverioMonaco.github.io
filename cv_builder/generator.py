@@ -330,11 +330,139 @@ def _normalize_committees(data: list) -> list:
     ]}]
 
 
+def _bold_phrases(text: str, pattern) -> str:
+    """Wrap every match of `pattern` in **...** (rendered bold by the `leb` filter)."""
+    if pattern is None or not text:
+        return text
+    return pattern.sub(lambda m: f"**{m.group(0)}**", str(text))
+
+
+class Tailoring:
+    """Per-application tweaks to the PDF CV, read from the `cv:` block of an
+    applications/<name>/application.yaml. Every key is optional:
+
+        position: [...]            # replaces the headline under the name
+        sections: [...]            # explicit section order (stems, e.g. "skills")
+        hide_sections: [...]       # sections to drop
+        bold: [...]                # phrases bolded in skills and entry bullets
+        hide_skills: [...]         # skills or whole skill categories to drop
+        hide_entries:              # per section: substrings of any field of an entry
+          experience: [...]        # (title, organization, ...; publications: bib key or title)
+
+    Rules that match nothing are reported, so typos don't go unnoticed.
+    """
+
+    def __init__(self, cfg: dict = None):
+        cfg = cfg or {}
+        self.position = cfg.get("position")
+        self.sections = [Path(s).stem for s in (cfg.get("sections") or [])]
+        self.hide_sections = {Path(s).stem for s in (cfg.get("hide_sections") or [])}
+        self.bold = [str(b) for b in (cfg.get("bold") or [])]
+        self.hide_skills = [str(h) for h in (cfg.get("hide_skills") or [])]
+        self.hide_entries = {k: [str(v) for v in (vs or [])]
+                             for k, vs in (cfg.get("hide_entries") or {}).items()}
+        self._used = set()
+        self._bold_re = None
+        if self.bold:
+            alts = "|".join(re.escape(b) for b in sorted(self.bold, key=len, reverse=True))
+            self._bold_re = re.compile(rf"(?<![\w*])(?:{alts})(?![\w*])", re.IGNORECASE)
+
+    def bolden(self, text: str) -> str:
+        if self._bold_re is None or not text:
+            return text
+        for m in self._bold_re.finditer(str(text)):
+            self._used.add(("bold", m.group(0).lower()))
+        return _bold_phrases(text, self._bold_re)
+
+    def _hidden(self, kind: str, rules: list, *fields) -> bool:
+        for rule in rules:
+            if any(rule.lower() in str(f or "").lower() for f in fields):
+                self._used.add((kind, rule.lower()))
+                return True
+        return False
+
+    def filter_entries(self, section: str, items: list) -> list:
+        rules = self.hide_entries.get(section) or []
+        # match against the entry's text fields (title, organization, name, issuer, ...)
+        items = [i for i in (items or [])
+                 if not self._hidden("entry:" + section, rules,
+                                     *(v for v in i.values() if isinstance(v, (str, int))))]
+        for i in items:
+            key = "highlights" if "highlights" in i else "items"
+            if i.get(key):
+                i[key] = [self.bolden(b) for b in i[key]]
+        return items
+
+    def filter_publications(self, pubs: list) -> list:
+        rules = self.hide_entries.get("publications") or []
+        kept = []
+        for p in pubs or []:
+            if any(r == p.get("key") for r in rules):
+                self._used.add(("entry:publications", p.get("key").lower()))
+                continue
+            if self._hidden("entry:publications", rules, p.get("title")):
+                continue
+            kept.append(p)
+        return kept
+
+    def filter_skills(self, groups: list) -> list:
+        out = []
+        for g in groups or []:
+            if self._hidden("skill", [h for h in self.hide_skills
+                                      if h.lower() == str(g["category"]).lower()], g["category"]):
+                continue
+            skills = []
+            for sk in g.get("skills") or []:
+                hit = [h for h in self.hide_skills if h.lower() == str(sk).lower()]
+                if hit:
+                    self._used.add(("skill", hit[0].lower()))
+                    continue
+                skills.append(self.bolden(sk))
+            if skills:
+                out.append({**g, "skills": skills})
+        return out
+
+    def pdf_sections(self, default: list, empty: set) -> list:
+        """Ordered section paths for cv.tex."""
+        by_stem = {Path(s).stem: s for s in default}
+        if self.sections:
+            order = [by_stem.get(s, f"cv/{s}.tex") for s in self.sections]
+        else:
+            order = list(default)
+        return [s for s in order
+                if Path(s).stem not in self.hide_sections and Path(s).stem not in empty]
+
+    def unused_rules(self) -> list:
+        """Human-readable list of rules that matched nothing."""
+        out = [f"bold: {b!r}" for b in self.bold if ("bold", b.lower()) not in self._used]
+        out += [f"hide_skills: {h!r}" for h in self.hide_skills if ("skill", h.lower()) not in self._used]
+        for sec, rules in self.hide_entries.items():
+            out += [f"hide_entries.{sec}: {r!r}" for r in rules
+                    if ("entry:" + sec, r.lower()) not in self._used]
+        return out
+
+
 class Generator:
-    def __init__(self, data_dir: Path, output_dir: Path):
+    def __init__(self, data_dir: Path, output_dir: Path, tailoring: "Tailoring" = None):
         self.data_dir = Path(data_dir)
         self.output_dir = Path(output_dir)
         self.env = _make_env()
+        # Only applied to the PDF CV (generate_cv / cv.tex), never to the website
+        self.tailoring = tailoring or Tailoring()
+        self.empty_sections = set()
+
+    def _cv(self, stem: str) -> list:
+        """Load data/cv/<stem>.yaml for the PDF CV, with tailoring applied."""
+        data = self._load("cv", f"{stem}.yaml")
+        if stem == "skills":
+            data = self.tailoring.filter_skills(data)
+        elif stem == "publications":
+            data = self.tailoring.filter_publications(data)
+        else:
+            data = self.tailoring.filter_entries(stem, data)
+        if not data:
+            self.empty_sections.add(stem)
+        return data
 
     def _load(self, *parts):
         return _load(self.data_dir.joinpath(*parts))
@@ -350,51 +478,51 @@ class Generator:
 
         self._render("entries.tex.j2", o / "experience.tex",
                      section_title="Experience", section_top_skip="0mm", swap_title_org=True,
-                     entries=_normalize_entries(self._load("cv", "experience.yaml")))
+                     entries=_normalize_entries(self._cv("experience")))
 
         self._render("entries.tex.j2", o / "education.tex",
                      section_title="Education",
-                     entries=_normalize_entries(self._load("cv", "education.yaml")))
+                     entries=_normalize_entries(self._cv("education")))
 
         self._render("skills.tex.j2", o / "skills.tex",
-                     skills=self._load("cv", "skills.yaml"))
+                     skills=self._cv("skills"))
 
         self._render("honors.tex.j2", o / "honors.tex",
                      section_title="Honors \\& Awards",
-                     groups=_normalize_grouped_honors(self._load("cv", "honors.yaml")))
+                     groups=_normalize_grouped_honors(self._cv("honors")))
 
         self._render("honors.tex.j2", o / "certificates.tex",
                      section_title="Certificates",
-                     groups=_normalize_certificates(self._load("cv", "certificates.yaml")))
+                     groups=_normalize_certificates(self._cv("certificates")))
 
         self._render("compactentries.tex.j2", o / "talks.tex",
                      section_title="Talks", section_top_skip="3.5mm",
-                     entries=_normalize_compact_entries(self._load("cv", "talks.yaml")))
+                     entries=_normalize_compact_entries(self._cv("talks")))
 
         self._render("compactentries.tex.j2", o / "posters.tex",
                      section_title="Posters", section_top_skip="3.5mm",
-                     entries=_normalize_compact_entries(self._load("cv", "posters.yaml")))
+                     entries=_normalize_compact_entries(self._cv("posters")))
 
         self._render("entries.tex.j2", o / "extracurricular.tex",
                      section_title="Extracurricular Activity", section_top_skip="3.5mm",
-                     entries=_normalize_entries(self._load("cv", "extracurricular.yaml")))
+                     entries=_normalize_entries(self._cv("extracurricular")))
 
         self._render("entries.tex.j2", o / "writing.tex",
                      section_title="Writing",
-                     entries=_normalize_entries(self._load("cv", "writing.yaml")))
+                     entries=_normalize_entries(self._cv("writing")))
 
         self._render("entries.tex.j2", o / "schools.tex",
                      section_title="Schools", section_top_skip="3.5mm",
-                     entries=_normalize_entries(self._load("cv", "schools.yaml")))
+                     entries=_normalize_entries(self._cv("schools")))
 
         self._render("honors.tex.j2", o / "committees.tex",
                      section_title="Program Committees",
-                     groups=_normalize_committees(self._load("cv", "committees.yaml")))
+                     groups=_normalize_committees(self._cv("committees")))
 
         self._render("publications.tex.j2", o / "publications.tex")
 
         self._render("bib.bib.j2", o / "bib.bib",
-                     publications=self._load("cv", "publications.yaml"))
+                     publications=self._cv("publications"))
 
     def generate_resume(self):
         o = self.output_dir / "resume"
@@ -511,6 +639,7 @@ class Generator:
 
         hide_from_pdf = set(config["cv"].get("hide_from_pdf") or [])
         pdf_sections = [s for s in config["cv"]["sections"] if s not in hide_from_pdf]
+        pdf_sections = self.tailoring.pdf_sections(pdf_sections, self.empty_sections)
 
         self._render("cv.tex.j2", self.output_dir / "cv.tex",
                      personal=personal, config=config, highlight_color_hex=highlight_color_hex,
@@ -519,19 +648,50 @@ class Generator:
         self._render("resume.tex.j2", self.output_dir / "resume.tex",
                      personal=personal, config=config, highlight_color_hex=highlight_color_hex)
 
-        self._render("coverletter.tex.j2", self.output_dir / "coverletter.tex",
-                     personal=personal, config=config, highlight_color_hex=highlight_color_hex)
+    def generate_application(self, app_dir: Path, app: dict):
+        """Render a tailored cv.tex and the motivation letter into self.output_dir
+        (applications/<name>/build). Returns True if the letter has references."""
+        app_dir = Path(app_dir)
+        personal = self._load("personal.yaml")
+        if self.tailoring.position:
+            p = self.tailoring.position
+            personal["position"] = [p] if isinstance(p, str) else list(p)
+        config = self._load("config.yaml")
+        highlight_color_hex = _resolve_color(config.get("pdf_highlight_color") or config["highlight_color"])[1:]
 
-    def export(self, dest_dir: Path, cls_path: Path):
-        """Copy the generated CV and motivational letter LaTeX sources into
-        dest_dir as a standalone project to customize for one application."""
-        dest_dir = Path(dest_dir)
-        dest_dir.mkdir(parents=True)
-        shutil.copy2(self.output_dir / "cv.tex", dest_dir / "cv.tex")
-        shutil.copytree(self.output_dir / "cv", dest_dir / "cv")
-        shutil.copy2(self.output_dir / "coverletter.tex", dest_dir / "coverletter.tex")
-        shutil.copy2(cls_path, dest_dir / cls_path.name)
-        self._render("export.Makefile.j2", dest_dir / "Makefile")
+        self.generate_cv()
+        hide_from_pdf = set(config["cv"].get("hide_from_pdf") or [])
+        pdf_sections = [s for s in config["cv"]["sections"] if s not in hide_from_pdf]
+        pdf_sections = self.tailoring.pdf_sections(pdf_sections, self.empty_sections)
+        self._render("cv.tex.j2", self.output_dir / "cv.tex",
+                     personal=personal, config=config, highlight_color_hex=highlight_color_hex,
+                     pdf_sections=pdf_sections)
+
+        # The letter can cite any of your papers, even ones hidden from this CV
+        self._render("bib.bib.j2", self.output_dir / "publications.bib",
+                     publications=self._load("cv", "publications.yaml"))
+
+        letter = {
+            "title": "", "opening": "", "closing": "Sincerely,", "logo": "",
+            "logo_width": 0.25, "date": "", "footer": "Motivation Letter", "enclosure": "",
+            **(app.get("letter") or {}),
+        }
+        letter["recipient"] = {"name": "", "address": "", **(letter.get("recipient") or {})}
+        letter["recipient"]["address"] = str(letter["recipient"]["address"] or "").strip()
+        date = str(letter.get("date") or "")
+        letter["date"] = "\\today" if date.lower() == "today" else latex_escape(date)
+        letter["footer_date"] = "\\today"
+        if letter["logo"] and not (app_dir / letter["logo"]).is_file():
+            raise FileNotFoundError(f"letter logo '{letter['logo']}' not found in {app_dir}")
+
+        body = (app_dir / "letter.tex").read_text() if (app_dir / "letter.tex").is_file() else ""
+        body = re.sub(r"(?<!\\)%.*", "", body)  # ignore commented-out \cite
+        local_bib = (app_dir / "references.bib").is_file()
+        has_refs = bool(re.search(r"\\(?:text|paren|foot|auto)?cite\b", body))
+        self._render("letter.tex.j2", self.output_dir / "letter.tex",
+                     personal=personal, config=config, highlight_color_hex=highlight_color_hex,
+                     letter=letter, has_refs=has_refs, local_bib=local_bib)
+        return has_refs
 
     def generate_gym_html(self):
         """Generate examples/gym.html — only if data/gym/*.csv exists."""
