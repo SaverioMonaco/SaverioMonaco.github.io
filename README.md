@@ -68,7 +68,7 @@ which regenerates everything under `build/`, then the Makefile copies the releva
 Each application lives in its own folder, `applications/<name>/`, and only stores what differs from the main CV:
 
 ```
-make new NAME=lanl     # creates applications/lanl/application.yaml and letter.tex
+make new NAME=lanl     # adds application.yaml and letter.tex to applications/lanl (folder may already exist)
 make app NAME=lanl     # builds applications/lanl/cv.pdf and letter.pdf
 ```
 

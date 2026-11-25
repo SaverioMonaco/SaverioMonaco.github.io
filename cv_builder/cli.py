@@ -41,11 +41,17 @@ APP_TEMPLATE_DIR = Path(__file__).parent / "templates" / "application"
 def new(name, dest_dir):
     """Start a tailored CV + motivation letter in DEST_DIR/NAME."""
     dest_path = Path(dest_dir) / name
-    if dest_path.exists():
-        click.echo(f"Error: '{dest_path}' already exists; not overwriting it.", err=True)
-        sys.exit(1)
-    shutil.copytree(APP_TEMPLATE_DIR, dest_path)
-    click.echo(f"Created {dest_path}: edit application.yaml and letter.tex, "
+    dest_path.mkdir(parents=True, exist_ok=True)
+    # Works on a folder you already made (e.g. with a logo in it): only the
+    # missing starter files are added, existing ones are never overwritten.
+    for src in sorted(APP_TEMPLATE_DIR.iterdir()):
+        dst = dest_path / src.name
+        if dst.exists():
+            click.echo(f"  kept existing {dst}")
+        else:
+            shutil.copy2(src, dst)
+            click.echo(f"  created {dst}")
+    click.echo(f"Edit application.yaml and letter.tex in {dest_path}, "
                f"then run `make app NAME={name}`.")
 
 
